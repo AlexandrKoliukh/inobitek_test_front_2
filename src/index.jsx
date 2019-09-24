@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
+import { fetchNodes } from './actions';
 
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
 const devtoolMiddleware = ext && ext();
@@ -17,6 +18,8 @@ const store = createStore(
     devtoolMiddleware,
   ),
 );
+
+store.dispatch(fetchNodes(0));
 
 ReactDOM.render(
   <Provider store={store}>
