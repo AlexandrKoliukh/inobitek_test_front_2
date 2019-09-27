@@ -1,18 +1,13 @@
 import React from 'react';
-
-import 'semantic-ui-css/semantic.min.css'
 import Tree from '../Tree/Tree';
-import { Container } from 'semantic-ui-react';
+import Row from '../Row/Row';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
-      <Container>
-        <Tree/>
-      </Container>
-      {/*<List>*/}
-      {/*  <NodesList/>*/}
-      {/*</List>*/}
+      <Row left={<Tree/>} right={<div/>}/>
     </div>
   );
 }

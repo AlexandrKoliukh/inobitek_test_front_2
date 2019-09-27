@@ -1,0 +1,13 @@
+
+.left {
+    border: 2px solid silver;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.right {
+    border: 2px solid silver;
+    padding: 10px;
+    position: sticky;
+    top: 50px;
+}
