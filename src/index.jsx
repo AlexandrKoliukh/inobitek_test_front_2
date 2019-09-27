@@ -18,8 +18,6 @@ const store = createStore(
   ),
 );
 
-// store.dispatch(fetchNodes(0));
-
 ReactDOM.render(
   <Provider store={store}>
     <App/>
