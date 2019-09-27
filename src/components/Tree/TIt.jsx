@@ -32,6 +32,7 @@ class TIt extends React.Component {
       'list-group-item': true,
       'active': selectedNode.id === id,
     });
+
     return (
       this.getChildren(parentId).map((child) => {
           return (
