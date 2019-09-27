@@ -15,7 +15,7 @@ class Tree extends React.Component {
           {nodesFetchingState === 'requested' ? <Loader/> :
             <TIt parentId={0} nodes={nodes} fetchNodes={fetchNodes}
                  setNodeSelected={setNodeSelected}
-            selectedNode={selectedNode}/>}
+                 selectedNode={selectedNode}/>}
         </div>
       </div>
     );

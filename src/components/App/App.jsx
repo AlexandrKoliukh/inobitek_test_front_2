@@ -3,6 +3,7 @@ import Tree from '../Tree/Tree';
 import Row from '../Row/Row';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 function App() {
   return (
