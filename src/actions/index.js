@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { createAction } from 'redux-actions';
-import { includes } from 'lodash';
+import _ from 'lodash';
+import { extractChildrenById } from '../a/mapTree';
 
 import routes from '../routes';
 
-const fetchedParentIds = [];
+let fetchedParentIds = [];
 
 export const setNodeSelected = createAction('NODE_SET_SELECTED');
+export const toggleUpItem = createAction('TREE_ITEM_TOGGLE_UP');
 
 export const removeNodeRequest = createAction('NODES_REMOVE_REQUEST');
 export const removeNodeSuccess = createAction('NODES_REMOVE_SUCCESS');
@@ -24,8 +26,14 @@ export const fetchNodesRequest = createAction('NODES_FETCH_REQUEST');
 export const fetchNodesSuccess = createAction('NODES_FETCH_SUCCESS');
 export const fetchNodesFailure = createAction('NODES_FETCH_FAILURE');
 
+export const toggleItem = (id) => (dispatch) => {
+  const deleteIds = extractChildrenById(id).map(i => i.id);
+  dispatch(toggleUpItem({ deleteIds: [...deleteIds, id] }));
+  fetchedParentIds = _.without(fetchedParentIds, ...deleteIds, id);
+};
+
 export const fetchNodes = (parentId) => async (dispatch) => {
-  if (includes(fetchedParentIds, parentId)) return;
+  if (_.includes(fetchedParentIds, parentId)) return;
   dispatch(fetchNodesRequest());
   try {
     const url = routes.nodesUrl(parentId);

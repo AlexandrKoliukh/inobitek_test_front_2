@@ -4,12 +4,9 @@ import _ from 'lodash';
 import cn from 'classnames';
 
 import './tit.css';
+import { extractChildrenById } from '../../a/mapTree';
 
 class TIt extends React.Component {
-
-  state = {
-    active: false,
-  };
 
   handleClick = (id) => (e) => {
     e.stopPropagation();
@@ -20,13 +17,14 @@ class TIt extends React.Component {
 
   getChildren = (id) => {
     const { nodes } = this.props;
-    if (nodes.length === 0) return [];
-    if (id === 0) return nodes.filter(i => _.isNull(i.parent_id));
-    return nodes.filter(i => i.parent_id === id);
+    if (!nodes) return [];
+    if (id === 0) return nodes;
+    return extractChildrenById(id, nodes);
   };
 
   toggleUp = (id) => (e) => {
     e.stopPropagation();
+
   };
 
   render() {
@@ -36,7 +34,8 @@ class TIt extends React.Component {
       'list-group-item': true,
       'active': selectedNode.id === id,
     });
-
+    console.log(this.getChildren(parentId));
+    console.log(this);
     return (
       this.getChildren(parentId).map((child) => {
           return (
@@ -68,7 +67,6 @@ class TIt extends React.Component {
 const mapStateToProps = (state) => {
 
   return {
-    nodesFetchingState: state.nodesFetchingState,
   }
 };
 

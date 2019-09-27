@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import Loader from '../Loader';
 import * as actions from '../../actions';
 import TIt from './TIt';
+import treeNodesSelector from '../../a/makeTree';
 
 class Tree extends React.Component {
 
   render() {
     const { nodesFetchingState, nodes, fetchNodes, setNodeSelected, selectedNode } = this.props;
+    console.log(nodes);
     return (
       <div>
         <span onClick={() => fetchNodes(0)}>Root</span>
@@ -26,7 +28,7 @@ const mapStateToProps = (state) => {
   return {
     nodesFetchingState: state.nodesFetchingState,
     selectedNode: state.selectedNode,
-    nodes: state.nodes,
+    nodes: treeNodesSelector(state),
   }
 };
 
