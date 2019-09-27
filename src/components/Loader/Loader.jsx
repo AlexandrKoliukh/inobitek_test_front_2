@@ -1,10 +1,11 @@
 import React from 'react'
-import { Dimmer, Loader as Spinner } from 'semantic-ui-react'
 
 const Loader = () => (
-  <Dimmer active inverted>
-    <Spinner size='large'>Loading</Spinner>
-  </Dimmer>
+  <div className="d-flex justify-content-center">
+    <div className="spinner-border" role="status">
+      <span className="sr-only">Loading...</span>
+    </div>
+  </div>
 );
 
 export default Loader;

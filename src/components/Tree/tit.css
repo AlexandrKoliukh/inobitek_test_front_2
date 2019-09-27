@@ -1,0 +1,15 @@
+.list-group-item {
+    border: none !important;
+    border-left: 2px solid rgba(0, 31, 74, 0.64) !important;
+    border-radius: 0 !important;
+}
+
+.list-group-item:hover {
+    cursor: pointer;
+    background-color: silver;
+}
+
+.node-name:before {
+    content: '';
+    border-top: 2px solid black;
+}
