@@ -22,9 +22,6 @@ export const fetchNodesRequest = createAction('NODES_FETCH_REQUEST');
 export const fetchNodesSuccess = createAction('NODES_FETCH_SUCCESS');
 export const fetchNodesFailure = createAction('NODES_FETCH_FAILURE');
 
-export const toFetchedNodesList = createAction('FETCHED_NODES_LIST_ADD');
-export const fromFetchedNodesList = createAction('FETCHED_NODES_LIST_REMOVE');
-
 export const fetchNodes = (parentId) => async (dispatch) => {
   if (includes(fetchedParentIds, parentId)) return;
   dispatch(fetchNodesRequest());
