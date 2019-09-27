@@ -7,9 +7,8 @@ import { Container } from 'semantic-ui-react';
 function App() {
   return (
     <div className="App">
-      <Container>
-        <Tree/>
-      </Container>
+        <div id="jstree_demo_div"/>
+        {/*<Tree/>*/}
       {/*<List>*/}
       {/*  <NodesList/>*/}
       {/*</List>*/}

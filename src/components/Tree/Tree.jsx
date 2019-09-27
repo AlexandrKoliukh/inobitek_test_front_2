@@ -1,12 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TreeView from '@material-ui/lab/TreeView';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import TreeItem from '@material-ui/lab/TreeItem';
 import Loader from '../Loader';
 import * as actions from '../../actions';
-import _ from 'lodash';
 import TIt from './TIt';
 
 class Tree extends React.Component {
@@ -49,14 +44,15 @@ class Tree extends React.Component {
     const { nodesFetchingState } = this.props;
     const { mappedNodes } = this.state;
     return nodesFetchingState === 'requested' ? <Loader/> : (
-      <TreeView
-        defaultCollapseIcon={<ExpandMoreIcon/>}
-        defaultExpandIcon={<ChevronRightIcon/>}
-      >
-        {mappedNodes.size === 0 ? null :
+      <div className="treeview w-20 border">
+        <h6 className="pt-3 pl-3">Folders</h6>
+        <hr/>
+        <ul className="mb-1 pl-3 pb-2">
+          {mappedNodes.size === 0 ? null :
             <TIt parent={{ name: 'Root', id: '0' }} mappedNodes={mappedNodes} nodeChildren={mappedNodes.get(0)}/>
-        }
-      </TreeView>
+          }
+        </ul>
+      </div>
     );
   }
 }

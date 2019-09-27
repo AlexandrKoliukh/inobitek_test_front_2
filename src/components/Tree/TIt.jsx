@@ -1,8 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import TreeItem from '@material-ui/lab/TreeItem/TreeItem';
+import {connect} from 'react-redux';
+import * as actions from '../../actions';
 
 class TIt extends React.Component {
+
+  handleClick = (id) => () => {
+    const { fetchNodes } = this.props;
+    fetchNodes(id);
+  };
 
   render() {
 
@@ -10,15 +15,22 @@ class TIt extends React.Component {
     console.log(this.props);
 
     return (
-      <TreeItem nodeId={parent.id} key={parent.id} label={parent.name}>
-        {nodeChildren.map((child) => {
+      <li key={parent.id}><i className="fas fa-angle-right rotate"/>
+        <span><i className="far fa-envelope-open ic-w mx-1"/>{parent.name}</span>
+        <ul className="nested">
+        {!nodeChildren ? null : nodeChildren.map((child) => {
           const childChildren = mappedNodes.get(child.id);
-          if (!childChildren) return <TreeItem nodeId={child.id} key={child.id} name={child.name}/>;
+          if (!childChildren) return (
+                <li key={child.id} onClick={this.handleClick(child.id)}><i className="fas fa-angle-right rotate"/>
+                  <span>{child.name}</span>
+                </li>
+            );
           return <TIt nodeChildren={childChildren} mappedNodes={mappedNodes} parent={child}/>;
         })}
-      </TreeItem>
+        </ul>
+      </li>
     );
   }
 }
 
-export default connect((state) => ({ nodes: state.nodes }))(TIt);
+export default connect((state) => ({ nodes: state.nodes }), actions)(TIt);
