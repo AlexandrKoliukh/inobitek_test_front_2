@@ -1,10 +1,12 @@
 import { createSelector } from 'reselect';
+import _ from 'lodash';
 
 const getNodes = (state) => state.nodes;
 
 const treeNodesSelector = createSelector(
   getNodes,
   (nodes) => {
+    if (!nodes || nodes.length === 0) return [];
   const iter = (items, parent) => {
     parent = parent || null;
     const result = [];
@@ -22,7 +24,7 @@ const treeNodesSelector = createSelector(
     return result;
 
   };
-  return iter(nodes);
+  return iter(nodes).filter(i => _.isNull(i.parent_id));
 });
 
 export default treeNodesSelector;

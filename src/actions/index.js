@@ -5,7 +5,7 @@ import { extractChildrenById } from '../a/mapTree';
 
 import routes from '../routes';
 
-let fetchedParentIds = [];
+const fetchedParentIds = [];
 
 export const setNodeSelected = createAction('NODE_SET_SELECTED');
 export const toggleUpItem = createAction('TREE_ITEM_TOGGLE_UP');
@@ -26,10 +26,13 @@ export const fetchNodesRequest = createAction('NODES_FETCH_REQUEST');
 export const fetchNodesSuccess = createAction('NODES_FETCH_SUCCESS');
 export const fetchNodesFailure = createAction('NODES_FETCH_FAILURE');
 
-export const toggleItem = (id) => (dispatch) => {
-  const deleteIds = extractChildrenById(id).map(i => i.id);
-  dispatch(toggleUpItem({ deleteIds: [...deleteIds, id] }));
-  fetchedParentIds = _.without(fetchedParentIds, ...deleteIds, id);
+export const toggleItem = (deleteIds, id) => (dispatch) => {
+  dispatch(toggleUpItem({ deleteIds }));
+  console.log(deleteIds);
+  console.log(fetchedParentIds);
+  _.pull(fetchedParentIds, ...deleteIds, id);
+  console.log(fetchedParentIds);
+
 };
 
 export const fetchNodes = (parentId) => async (dispatch) => {

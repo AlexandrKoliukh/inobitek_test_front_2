@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import cn from 'classnames';
+import * as actions from '../../actions';
 
 import './tit.css';
 import { extractChildrenById } from '../../a/mapTree';
@@ -12,7 +13,7 @@ class TIt extends React.Component {
     e.stopPropagation();
     const { fetchNodes, setNodeSelected, nodes } = this.props;
     fetchNodes(id);
-    setNodeSelected(nodes.filter(i => i.id === id)[0]);
+    setNodeSelected();
   };
 
   getChildren = (id) => {
@@ -24,18 +25,24 @@ class TIt extends React.Component {
 
   toggleUp = (id) => (e) => {
     e.stopPropagation();
-
+    const { toggleItem, nodes } = this.props;
+    const deleteIds = extractChildrenById(id, nodes).map(i => i.id);
+    toggleItem(deleteIds, id);
   };
 
   render() {
 
-    const { parentId, nodes, fetchNodes, selectedNode, setNodeSelected } = this.props;
+    const { parentId,
+      nodes,
+      fetchNodes,
+      selectedNode,
+      setNodeSelected,
+      toggleItem,
+    } = this.props;
     const getClassesLi = (id) => cn({
       'list-group-item': true,
       'active': selectedNode.id === id,
     });
-    console.log(this.getChildren(parentId));
-    console.log(this);
     return (
       this.getChildren(parentId).map((child) => {
           return (
@@ -55,7 +62,9 @@ class TIt extends React.Component {
 
               <TIt parentId={child.id} nodes={nodes} fetchNodes={fetchNodes}
                    setNodeSelected={setNodeSelected}
-                   selectedNode={selectedNode}/>
+                   selectedNode={selectedNode}
+                   toggleItem={toggleItem}
+              />
             </div>
           )
         }

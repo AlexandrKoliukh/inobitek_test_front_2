@@ -32,8 +32,9 @@ const nodes = handleActions({
   //     allIds,
   //   };
   // },
-  // [actions.toggleUpItem](state, { payload: { deleteIds }}) {
-  //   return [...state.filter(i => !_.includes(deleteIds, i.id))]
-  // },
+  [actions.toggleUpItem](state, { payload: { deleteIds }}) {
+    console.log(deleteIds);
+    return [...state.filter(i => !_.includes(deleteIds, i.id))]
+  },
 }, []);
 export default nodes;

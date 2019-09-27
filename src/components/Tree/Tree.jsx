@@ -8,8 +8,15 @@ import treeNodesSelector from '../../a/makeTree';
 class Tree extends React.Component {
 
   render() {
-    const { nodesFetchingState, nodes, fetchNodes, setNodeSelected, selectedNode } = this.props;
-    console.log(nodes);
+    const {
+      nodesFetchingState,
+      nodes,
+      fetchNodes,
+      setNodeSelected,
+      selectedNode,
+      toggleItem
+    } = this.props;
+
     return (
       <div>
         <span onClick={() => fetchNodes(0)}>Root</span>
@@ -17,7 +24,9 @@ class Tree extends React.Component {
           {nodesFetchingState === 'requested' ? <Loader/> :
             <TIt parentId={0} nodes={nodes} fetchNodes={fetchNodes}
                  setNodeSelected={setNodeSelected}
-                 selectedNode={selectedNode}/>}
+                 selectedNode={selectedNode}
+                 toggleItem={toggleItem}
+            />}
         </div>
       </div>
     );
