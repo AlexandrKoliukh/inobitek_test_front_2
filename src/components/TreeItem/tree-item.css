@@ -9,6 +9,11 @@
     background-color: silver;
 }
 
+/*.list-group-item > .list-group-item:hover {*/
+/*    cursor: pointer;*/
+/*    background-color: silver;*/
+/*}*/
+
 .node-name:before {
     content: '';
     border-top: 2px solid black;

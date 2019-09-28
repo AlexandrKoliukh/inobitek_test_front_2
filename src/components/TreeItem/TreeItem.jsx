@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import cn from 'classnames';
 
 import './tree-item.css';
-import { extractChildrenById, getChildrenIdsWide } from '../utils/aroundTree';
+import { extractChildrenById, getChildrenIdsWide } from '../../utils/aroundTree';
+import { getNodeById } from '../../utils/getNodeById';
 
 class TreeItem extends React.Component {
 
   handleClick = (id) => (e) => {
     e.stopPropagation();
-    const { fetchNodes, setNodeSelected } = this.props;
+    const { fetchNodes, setNodeSelected, nodes } = this.props;
     fetchNodes(id);
-    setNodeSelected();
+    setNodeSelected(getNodeById(id, nodes));
   };
 
   getChildren = (id) => {
@@ -23,9 +24,10 @@ class TreeItem extends React.Component {
 
   toggleUp = (id) => (e) => {
     e.stopPropagation();
-    const { toggleItem, nodes } = this.props;
+    const { toggleItem, nodes, setNodeSelected } = this.props;
     const deleteIds = getChildrenIdsWide(id, nodes);
     toggleItem(deleteIds, id);
+    setNodeSelected(getNodeById(id, nodes));
   };
 
   render() {
@@ -46,7 +48,11 @@ class TreeItem extends React.Component {
       this.getChildren(parentId).map((child) => {
           return (
             <div key={child.id} onClick={this.handleClick(child.id)}
-                 className={getClassesLi(child.id)}>
+                 className={getClassesLi(child.id)}
+            onMouseOver={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.stopPropagation()}
+            onMouseMove={(e) => e.stopPropagation()}
+            >
 
               <span className="node-name">{child.name}
                 <button type="button"

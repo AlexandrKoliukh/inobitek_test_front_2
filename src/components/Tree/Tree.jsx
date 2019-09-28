@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Loader from '../Loader';
 import * as actions from '../../actions';
-import TIt from '../../TreeItem';
+import TIt from '../TreeItem';
 import treeNodesSelector from '../../selectors/makeTree';
 
 import './tree.css';
