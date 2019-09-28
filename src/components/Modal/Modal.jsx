@@ -18,7 +18,7 @@ class Modal extends React.Component {
 
     const modalStates = {
       add: {
-        header: `Add node to "${selectedNode.name}"`,
+        header: `Add node to "${selectedNode.name || 'Root'}"`,
         body: <NewNodeForm/>,
       },
       edit: {

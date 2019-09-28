@@ -56,10 +56,6 @@ class TreeItem extends React.Component {
 
               <span className="node-name">
                 {child.name}
-                <button type="button"
-                        className="btn btn-danger btn-sm float-right">
-                  <i className="fa fa-trash-o"/>
-                </button>
                 <button type="button" onClick={this.toggleUp(child.id)}
                         className="btn btn-secondary btn-sm float-right">
                   <i className="fa fa-arrow-up"/>

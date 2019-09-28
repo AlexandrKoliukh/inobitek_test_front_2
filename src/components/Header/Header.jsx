@@ -26,18 +26,17 @@ class Header extends React.Component {
             Root
           </button>
           <button type="button"
+                  className="btn btn-success"
+                  onClick={() => openModal({ data: 'add' })}
+          >
+            Add
+          </button>
+          <button type="button"
                   className="btn btn-secondary"
                   {...buttonProps}
                   onClick={() => openModal({ data: 'edit' })}
           >
             Edit
-          </button>
-          <button type="button"
-                  className="btn btn-success"
-                  {...buttonProps}
-                  onClick={() => openModal({ data: 'add' })}
-          >
-            Add
           </button>
           <button type="button"
                   className="btn btn-danger"

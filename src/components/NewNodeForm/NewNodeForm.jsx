@@ -14,7 +14,8 @@ class NewNodeForm extends React.Component {
 
   handleSubmit = (form) => {
     const { addNode, selectedNode, closeModal } = this.props;
-    addNode({ ...form, parentId: selectedNode.id });
+    const parentId = selectedNode ? selectedNode.id : 0;
+    addNode({ ...form, parentId });
     closeModal();
   };
 
