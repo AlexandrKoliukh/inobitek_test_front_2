@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import cn from 'classnames';
 
 class Header extends React.Component {
 
@@ -10,18 +9,7 @@ class Header extends React.Component {
       selectedNode,
       fetchNodes,
       openModal,
-      closeModal,
     } = this.props;
-
-    const editButtonClasses = cn({
-      btn: true,
-      'btn-info': true,
-    });
-
-    const addButtonClasses = cn({
-      btn: true,
-      'btn-success': true,
-    });
 
     const buttonProps = selectedNode.id ? {} : {
       disabled: 'disabled',
@@ -38,18 +26,25 @@ class Header extends React.Component {
             Root
           </button>
           <button type="button"
-                  className={editButtonClasses}
+                  className="btn btn-secondary"
                   {...buttonProps}
                   onClick={() => openModal({ data: 'edit' })}
           >
             Edit
           </button>
           <button type="button"
-                  className={addButtonClasses}
+                  className="btn btn-success"
                   {...buttonProps}
                   onClick={() => openModal({ data: 'add' })}
           >
             Add
+          </button>
+          <button type="button"
+                  className="btn btn-danger"
+                  {...buttonProps}
+                  onClick={() => openModal({ data: 'delete' })}
+          >
+            Delete
           </button>
         </div>
         <hr/>

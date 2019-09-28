@@ -12,9 +12,8 @@ const nodes = handleActions({
     const { node } = payload.response.data;
     return [...state, node]
   },
-  [actions.removeNodeSuccess](state, { payload }) {
-    const { id } = payload;
-    return state.filter(i => i.id !== id);
+  [actions.removeNodeSuccess](state, { payload: { deleteIds, id } }) {
+    return [...state.filter(i => !_.includes([...deleteIds, id], i.id))]
   },
   [actions.updateNodeSuccess](state, { payload }) {
     const { node } = payload.response.data;
@@ -22,7 +21,6 @@ const nodes = handleActions({
     return [...stateWithoutUpdatedNode, node]
   },
   [actions.toggleUpItem](state, { payload: { deleteIds }}) {
-    console.log(deleteIds);
     return [...state.filter(i => !_.includes(deleteIds, i.id))]
   },
 }, []);

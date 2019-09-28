@@ -8,12 +8,12 @@ const modalState = handleActions({
       data: payload.data,
     }
   },
-  [actions.closeModal](state, { payload }) {
+  [actions.closeModal]() {
     return {
       open: false,
-      data: ''
+      data: 'none'
     }
   }
-}, { open: false, data: '' });
+}, { open: false, data: 'none' });
 
 export default modalState;

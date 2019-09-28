@@ -37,7 +37,7 @@ export const getChildrenIdsWide = (id, tree) => {
     return _.includes(acc, parentId) ? [...acc, nodeId] : acc
   }, i, [id]));
 
-  return _.without(deleteIds);
+  return deleteIds;
 };
 
 

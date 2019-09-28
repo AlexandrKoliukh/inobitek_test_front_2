@@ -59,12 +59,12 @@ export const addNode = (node) => async (dispatch) => {
   }
 };
 
-export const removeNode = node => async (dispatch) => {
+export const removeNode = (node, childrenIds) => async (dispatch) => {
   dispatch(removeNodeRequest());
   try {
     const url = routes.nodeRemoveUrl();
     await axios.delete(url, { data: { id: node.id } });
-    dispatch(removeNodeSuccess({ id: node.id }));
+    dispatch(removeNodeSuccess({ id: node.id, deleteIds: childrenIds }));
   } catch (e) {
     dispatch(removeNodeFailure());
     throw e;
