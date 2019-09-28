@@ -6,7 +6,12 @@ import cn from 'classnames';
 class Header extends React.Component {
 
   render() {
-    const { selectedNode, fetchNodes } = this.props;
+    const {
+      selectedNode,
+      fetchNodes,
+      openModal,
+      closeModal,
+    } = this.props;
 
     const editButtonClasses = cn({
       btn: true,
@@ -32,8 +37,20 @@ class Header extends React.Component {
             <i className="fa fa-angle-down"/>
             Root
           </button>
-          <button type="button" className={editButtonClasses} {...buttonProps}>Edit</button>
-          <button type="button" className={addButtonClasses} {...buttonProps}>Add</button>
+          <button type="button"
+                  className={editButtonClasses}
+                  {...buttonProps}
+                  onClick={() => openModal({ data: 'edit' })}
+          >
+            Edit
+          </button>
+          <button type="button"
+                  className={addButtonClasses}
+                  {...buttonProps}
+                  onClick={() => openModal({ data: 'add' })}
+          >
+            Add
+          </button>
         </div>
         <hr/>
       </>
@@ -48,4 +65,10 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, actions)(Header);
+const actionCreators = {
+  openModal: actions.openModal,
+  closeModal: actions.closeModal,
+  fetchNodes: actions.fetchNodes,
+};
+
+export default connect(mapStateToProps, actionCreators)(Header);

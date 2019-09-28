@@ -9,6 +9,9 @@ const fetchedParentIds = [];
 export const setNodeSelected = createAction('NODE_SET_SELECTED');
 export const toggleUpItem = createAction('TREE_ITEM_TOGGLE_UP');
 
+export const openModal = createAction('MODAL_OPEN');
+export const closeModal = createAction('MODAL_CLOSE');
+
 export const removeNodeRequest = createAction('NODES_REMOVE_REQUEST');
 export const removeNodeSuccess = createAction('NODES_REMOVE_SUCCESS');
 export const removeNodeFailure = createAction('NODES_REMOVE_FAILURE');

@@ -1,0 +1,13 @@
+.modal-container {
+    position: absolute;
+    width: 400px;
+    background-color: #eceeec;
+    border: 2px solid #000;
+    padding: 20px 40px;
+    top: 10%;
+    left: 30%;
+}
+
+/*.modal-main {*/
+/*    left: -10% !important;*/
+/*}*/
