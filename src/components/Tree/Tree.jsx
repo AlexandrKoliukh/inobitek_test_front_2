@@ -4,9 +4,9 @@ import Loader from '../Loader';
 import * as actions from '../../actions';
 import TIt from '../TreeItem';
 import treeNodesSelector from '../../selectors/makeTree';
-import cn from 'classnames';
 
 import './tree.css';
+import Header from '../Header/Header';
 
 class Tree extends React.Component {
 
@@ -27,34 +27,9 @@ class Tree extends React.Component {
       nodeUpdateState === 'requesting' || nodeAddState === 'requested' ||
       nodeRemovingState === 'requesting');
 
-    const editButtonClasses= cn({
-      btn: true,
-      'btn-info': true,
-    });
-
-    const addButtonClasses= cn({
-      btn: true,
-      'btn-success': true,
-    });
-
-    const buttonProps =  selectedNode.id ? {} : {
-      disabled: 'disabled',
-      'data-toggle': 'tooltip',
-      'data-placement': 'bottom',
-      title: 'Select node',
-    };
-
     return (
       <div>
-        <div>
-          <button type="button" className="btn btn-light" onClick={() => fetchNodes(0)}>
-            <i className="fa fa-angle-down"/>
-            Root
-          </button>
-          <button type="button" className={editButtonClasses} {...buttonProps}>Edit</button>
-          <button type="button" className={addButtonClasses} {...buttonProps}>Add</button>
-        </div>
-        <hr/>
+        <Header/>
         <div className="list-group">
           {isRequestingState ?
             (
