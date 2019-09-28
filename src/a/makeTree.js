@@ -24,7 +24,7 @@ const treeNodesSelector = createSelector(
     return result;
 
   };
-  return iter(nodes).filter(i => _.isNull(i.parent_id));
+  return iter(nodes);
 });
 
 export default treeNodesSelector;

@@ -5,7 +5,7 @@ import cn from 'classnames';
 import * as actions from '../../actions';
 
 import './tit.css';
-import { extractChildrenById } from '../../a/mapTree';
+import { extractChildrenById, getChildrenIdsWide } from '../../a/mapTree';
 
 class TIt extends React.Component {
 
@@ -26,7 +26,7 @@ class TIt extends React.Component {
   toggleUp = (id) => (e) => {
     e.stopPropagation();
     const { toggleItem, nodes } = this.props;
-    const deleteIds = extractChildrenById(id, nodes).map(i => i.id);
+    const deleteIds = getChildrenIdsWide(id, nodes);
     toggleItem(deleteIds, id);
   };
 

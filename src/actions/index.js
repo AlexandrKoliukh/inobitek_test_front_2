@@ -28,11 +28,9 @@ export const fetchNodesFailure = createAction('NODES_FETCH_FAILURE');
 
 export const toggleItem = (deleteIds, id) => (dispatch) => {
   dispatch(toggleUpItem({ deleteIds }));
-  console.log(deleteIds);
-  console.log(fetchedParentIds);
+  console.log(fetchedParentIds, deleteIds);
   _.pull(fetchedParentIds, ...deleteIds, id);
   console.log(fetchedParentIds);
-
 };
 
 export const fetchNodes = (parentId) => async (dispatch) => {
