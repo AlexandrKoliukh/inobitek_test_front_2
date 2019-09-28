@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
-// import _ from 'lodash';
+import _ from 'lodash';
 
 const nodes = handleActions({
   [actions.fetchNodesSuccess](state, { payload }) {
@@ -32,5 +32,9 @@ const nodes = handleActions({
   //     allIds,
   //   };
   // },
+  [actions.toggleUpItem](state, { payload: { deleteIds }}) {
+    console.log(deleteIds);
+    return [...state.filter(i => !_.includes(deleteIds, i.id))]
+  },
 }, []);
 export default nodes;
