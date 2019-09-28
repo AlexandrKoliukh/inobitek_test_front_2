@@ -24,8 +24,8 @@ class Tree extends React.Component {
     } = this.props;
 
     const isRequestingState = (nodesFetchingState === 'requested' ||
-      nodeUpdateState === 'requesting' || nodeAddState === 'requested' ||
-      nodeRemovingState === 'requesting');
+      nodeUpdateState === 'requested' || nodeAddState === 'requested' ||
+      nodeRemovingState === 'requested');
 
     return (
       <div>

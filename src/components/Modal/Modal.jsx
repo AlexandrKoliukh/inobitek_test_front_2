@@ -2,13 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SimpleModal from '@material-ui/core/Modal';
 import * as actions from '../../actions';
+import EditNodeForm from '../EditNodeForm';
 
 import './modal.css';
 
 class Modal extends React.Component {
 
   render() {
-    const { modalState: { open, data }, closeModal, selectedNode } = this.props;
+    const { modalState: { open, data },
+      closeModal,
+      selectedNode,
+    } = this.props;
 
     return (
       <SimpleModal
@@ -25,7 +29,7 @@ class Modal extends React.Component {
               `Edit node "${selectedNode.name}"`}
           </h2>
           <hr/>
-
+          <EditNodeForm/>
         </div>
       </SimpleModal>
     )
