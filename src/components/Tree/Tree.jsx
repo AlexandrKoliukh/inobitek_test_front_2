@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Loader from '../Loader';
 import * as actions from '../../actions';
-import TIt from '../TreeItem';
+import TreeItem from '../TreeItem';
 import treeNodesSelector from '../../selectors/makeTree';
 
 import './tree.css';
@@ -31,24 +31,16 @@ class Tree extends React.Component {
       <div>
         <Header/>
         <div className="list-group">
-          {isRequestingState ?
-            (
-              <>
-                <Loader/>
-                <TIt parentId={0} nodes={nodes} fetchNodes={fetchNodes}
-                     setNodeSelected={setNodeSelected}
-                     selectedNode={selectedNode}
-                     toggleItem={toggleItem}
-                />
-              </>
-            )
-            : (
-              <TIt parentId={0} nodes={nodes} fetchNodes={fetchNodes}
-                   setNodeSelected={setNodeSelected}
-                   selectedNode={selectedNode}
-                   toggleItem={toggleItem}
-              />
-            )}
+          <div className="list-group-item" onClick={() => fetchNodes(0)}>
+            <i className="fa fa-angle-down"/>
+            Root
+          </div>
+          {isRequestingState ? <Loader/> : null}
+          <TreeItem parentId={0} nodes={nodes} fetchNodes={fetchNodes}
+                    setNodeSelected={setNodeSelected}
+                    selectedNode={selectedNode}
+                    toggleItem={toggleItem}
+          />
         </div>
       </div>
     );
