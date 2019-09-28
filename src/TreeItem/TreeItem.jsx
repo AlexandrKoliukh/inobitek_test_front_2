@@ -1,17 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import cn from 'classnames';
-import * as actions from '../../actions';
 
-import './tit.css';
-import { extractChildrenById, getChildrenIdsWide } from '../../a/mapTree';
+import './tree-item.css';
+import { extractChildrenById, getChildrenIdsWide } from '../utils/mapTree';
 
-class TIt extends React.Component {
+class TreeItem extends React.Component {
 
   handleClick = (id) => (e) => {
     e.stopPropagation();
-    const { fetchNodes, setNodeSelected, nodes } = this.props;
+    const { fetchNodes, setNodeSelected } = this.props;
     fetchNodes(id);
     setNodeSelected();
   };
@@ -32,7 +30,8 @@ class TIt extends React.Component {
 
   render() {
 
-    const { parentId,
+    const {
+      parentId,
       nodes,
       fetchNodes,
       selectedNode,
@@ -60,10 +59,10 @@ class TIt extends React.Component {
                 </button>
               </span>
 
-              <TIt parentId={child.id} nodes={nodes} fetchNodes={fetchNodes}
-                   setNodeSelected={setNodeSelected}
-                   selectedNode={selectedNode}
-                   toggleItem={toggleItem}
+              <TreeItem parentId={child.id} nodes={nodes} fetchNodes={fetchNodes}
+                        setNodeSelected={setNodeSelected}
+                        selectedNode={selectedNode}
+                        toggleItem={toggleItem}
               />
             </div>
           )
@@ -73,10 +72,9 @@ class TIt extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
 
-  return {
-  }
+  return {}
 };
 
-export default connect(mapStateToProps)(TIt);
+export default connect(mapStateToProps)(TreeItem);

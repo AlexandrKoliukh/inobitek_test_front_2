@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Loader from '../Loader';
 import * as actions from '../../actions';
-import TIt from './TIt';
-import treeNodesSelector from '../../a/makeTree';
+import TIt from '../../TreeItem';
+import treeNodesSelector from '../../selectors/makeTree';
+
+import './tree.css';
 
 class Tree extends React.Component {
 
@@ -21,12 +23,24 @@ class Tree extends React.Component {
       <div>
         <span onClick={() => fetchNodes(0)}>Root</span>
         <div className="list-group">
-          {nodesFetchingState === 'requested' ? <Loader/> :
-            <TIt parentId={0} nodes={nodes} fetchNodes={fetchNodes}
-                 setNodeSelected={setNodeSelected}
-                 selectedNode={selectedNode}
-                 toggleItem={toggleItem}
-            />}
+          {nodesFetchingState === 'requested' ?
+            (
+              <>
+                <Loader/>
+                <TIt parentId={0} nodes={nodes} fetchNodes={fetchNodes}
+                     setNodeSelected={setNodeSelected}
+                     selectedNode={selectedNode}
+                     toggleItem={toggleItem}
+                />
+              </>
+            )
+            : (
+              <TIt parentId={0} nodes={nodes} fetchNodes={fetchNodes}
+                   setNodeSelected={setNodeSelected}
+                   selectedNode={selectedNode}
+                   toggleItem={toggleItem}
+              />
+            )}
         </div>
       </div>
     );
