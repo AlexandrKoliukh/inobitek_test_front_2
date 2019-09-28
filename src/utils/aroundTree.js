@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export const mapTree = (fn, node) => {
+const mapTree = (fn, node) => {
   const { children } = node;
   if (!children) return fn(node);
 
@@ -38,4 +38,17 @@ export const getChildrenIdsWide = (id, tree) => {
   }, i, [id]));
 
   return _.without(deleteIds);
+};
+
+
+export const getNodeById = (id, tree) => {
+  const res = [];
+
+  tree.forEach(i => mapTree((node) => {
+    const { id: nodeId } = node;
+    if (nodeId === id) res.push(node);
+    return node;
+  }, i));
+
+  return res[0];
 };

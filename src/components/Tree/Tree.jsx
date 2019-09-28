@@ -28,7 +28,14 @@ class Tree extends React.Component {
 
     return (
       <div>
-        <span onClick={() => fetchNodes(0)}>Root</span>
+        <div onClick={() => fetchNodes(0)}>
+          <button type="button" className="btn btn-light">
+            <i className="fa fa-angle-down"/>
+            Root
+          </button>
+          <button type="button" className="btn btn-info">Edit</button>
+          <button type="button" className="btn btn-success">Add</button>
+        </div>
         <div className="list-group">
           {isRequestingState ?
             (

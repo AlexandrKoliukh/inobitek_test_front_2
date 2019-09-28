@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import cn from 'classnames';
 
 import './tree-item.css';
-import { extractChildrenById, getChildrenIdsWide } from '../../utils/aroundTree';
-import { getNodeById } from '../../utils/getNodeById';
+import { extractChildrenById, getChildrenIdsWide, getNodeById } from '../../utils/aroundTree';
 
 class TreeItem extends React.Component {
 
@@ -18,7 +17,7 @@ class TreeItem extends React.Component {
   getChildren = (id) => {
     const { nodes } = this.props;
     if (!nodes) return [];
-    if (id === 0) return nodes;
+    if (id === 0) return nodes; //for first render from Root
     return extractChildrenById(id, nodes);
   };
 
@@ -54,7 +53,8 @@ class TreeItem extends React.Component {
             onMouseMove={(e) => e.stopPropagation()}
             >
 
-              <span className="node-name">{child.name}
+              <span className="node-name">
+                {child.name}
                 <button type="button"
                         className="btn btn-danger btn-sm float-right">
                   <i className="fa fa-trash-o"/>
