@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import cn from 'classnames';
 
 import './tree-item.css';
-import { extractChildrenById, getChildrenIdsWide } from '../utils/mapTree';
+import { extractChildrenById, getChildrenIdsWide } from '../utils/aroundTree';
 
 class TreeItem extends React.Component {
 

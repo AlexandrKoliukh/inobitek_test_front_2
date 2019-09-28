@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-export const mapTree = (fn, node) => {
+export const aroundTree = (fn, node) => {
   const { children } = node;
   if (!children) return fn(node);
 
-  return { ...fn(node), children: children.map(node => mapTree(fn, node)) };
+  return { ...fn(node), children: children.map(node => aroundTree(fn, node)) };
 };
 
 const reduceTree = (fn, node, acc) => {
@@ -18,7 +18,7 @@ const reduceTree = (fn, node, acc) => {
 export const extractChildrenById = (id, tree) => {
   const children = [];
 
-  tree.forEach(i => mapTree((node) => {
+  tree.forEach(i => aroundTree((node) => {
     const { parent_id: parentId } = node;
     if (parentId === id) children.push(node);
     return node;
