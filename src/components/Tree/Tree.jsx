@@ -16,14 +16,21 @@ class Tree extends React.Component {
       fetchNodes,
       setNodeSelected,
       selectedNode,
-      toggleItem
+      toggleItem,
+      nodeAddState,
+      nodeUpdateState,
+      nodeRemovingState,
     } = this.props;
+
+    const isRequestingState = (nodesFetchingState === 'requested' ||
+      nodeUpdateState === 'requesting' || nodeAddState === 'requested' ||
+      nodeRemovingState === 'requesting');
 
     return (
       <div>
         <span onClick={() => fetchNodes(0)}>Root</span>
         <div className="list-group">
-          {nodesFetchingState === 'requested' ?
+          {isRequestingState ?
             (
               <>
                 <Loader/>
@@ -50,6 +57,9 @@ class Tree extends React.Component {
 const mapStateToProps = (state) => {
   return {
     nodesFetchingState: state.nodesFetchingState,
+    nodeAddState: state.nodeAddState,
+    nodeUpdateState: state.nodeUpdateState,
+    nodeRemovingState: state.nodeRemovingState,
     selectedNode: state.selectedNode,
     nodes: treeNodesSelector(state),
   }
