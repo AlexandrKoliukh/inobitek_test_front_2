@@ -37,7 +37,7 @@ class Header extends React.Component {
         </button>
         <button type="button"
                 className="btn btn-success"
-                disabled={nodes.length === 0}
+                disabled={isRequestingState}
                 onClick={(e) => {
                   e.stopPropagation();
                   openModal({ data: 'add' })

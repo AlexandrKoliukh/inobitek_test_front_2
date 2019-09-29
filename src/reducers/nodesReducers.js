@@ -10,6 +10,7 @@ const nodes = handleActions({
   },
   [actions.addNodeSuccess](state, { payload }) {
     const { node } = payload.response.data;
+    if (state.length === 0) return []; // for add node when view tree not fetched
     return [...state, node]
   },
   [actions.removeNodeSuccess](state, { payload: { deleteIds, id } }) {
