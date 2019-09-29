@@ -41,8 +41,7 @@ class Header extends React.Component {
                 onClick={(e) => {
                   e.stopPropagation();
                   openModal({ data: 'add' })
-                }}
-        >
+                }}>
           Add
         </button>
         <button type="button"
@@ -51,8 +50,7 @@ class Header extends React.Component {
                 onClick={(e) => {
                   e.stopPropagation();
                   openModal({ data: 'edit' })
-                }}
-        >
+                }}>
           Edit
         </button>
         <button type="button"
@@ -61,8 +59,7 @@ class Header extends React.Component {
                 onClick={(e) => {
                   e.stopPropagation();
                   openModal({ data: 'delete' })
-                }}
-        >
+                }}>
           Delete
         </button>
         <hr/>

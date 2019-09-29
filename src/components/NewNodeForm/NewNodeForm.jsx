@@ -31,8 +31,6 @@ class NewNodeForm extends React.Component {
   render() {
     const { handleSubmit, submitting, closeModal, error, submitSucceeded, invalid } = this.props;
 
-    console.log(this.props);
-
     const renderForm = () => (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
         <NodeForm/>
