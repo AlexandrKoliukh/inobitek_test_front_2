@@ -11,7 +11,8 @@ import './modal.css';
 class Modal extends React.Component {
 
   render() {
-    const { modalState: { open, data },
+    const {
+      modalState: { open, data },
       closeModal,
       selectedNode,
     } = this.props;

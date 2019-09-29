@@ -21,7 +21,7 @@ const nodes = handleActions({
     const stateWithoutUpdatedNode = state.filter(i => i.id !== node.id);
     return [...stateWithoutUpdatedNode, node]
   },
-  [actions.toggleUpItem](state, { payload: { deleteIds }}) {
+  [actions.toggleUpItem](state, { payload: { deleteIds } }) {
     return [...state.filter(i => !_.includes(deleteIds, i.id))]
   },
 }, []);

@@ -12,17 +12,11 @@ class Tree extends React.Component {
   render() {
     const {
       nodesFetchingState,
-      nodes,
-      fetchNodes,
-      setNodeSelected,
-      selectedNode,
-      toggleItem,
       nodeAddState,
       nodeUpdateState,
       nodeRemovingState,
+      ...props
     } = this.props;
-
-    console.log(nodes);
 
     const isRequestingState = (nodesFetchingState === 'requested' ||
       nodeUpdateState === 'requested' || nodeAddState === 'requested' ||
@@ -32,11 +26,7 @@ class Tree extends React.Component {
       <div>
         <ul className="list-group">
           {isRequestingState ? <Loader/> : null}
-          <TreeItem parentId={0} nodes={nodes} fetchNodes={fetchNodes}
-                    setNodeSelected={setNodeSelected}
-                    selectedNode={selectedNode}
-                    toggleItem={toggleItem}
-          />
+          <TreeItem parentId={0} {...props}/>
         </ul>
       </div>
     );

@@ -72,7 +72,6 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-
   return {
     selectedNode: state.selectedNode,
     nodes: state.nodes,
@@ -84,7 +83,6 @@ const mapStateToProps = (state) => {
 };
 
 const actionCreators = {
-
   openModal: actions.openModal,
   closeModal: actions.closeModal,
   fetchNodes: actions.fetchNodes,

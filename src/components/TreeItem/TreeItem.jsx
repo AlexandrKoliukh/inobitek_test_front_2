@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
 
 import './tree-item.css';
@@ -7,7 +6,7 @@ import { extractChildrenById, getChildrenIdsWide, getNodeById } from '../../util
 
 class TreeItem extends React.Component {
 
-  handleClick = (id) => (e) => {
+  nodesFetch = (id) => (e) => {
     e.stopPropagation();
     const { fetchNodes, setNodeSelected, nodes } = this.props;
     fetchNodes(id);
@@ -29,35 +28,33 @@ class TreeItem extends React.Component {
     setNodeSelected(getNodeById(id, nodes));
   };
 
-  render() {
-
-    const {
-      parentId,
-      nodes,
-      fetchNodes,
-      selectedNode,
-      setNodeSelected,
-      toggleItem,
-    } = this.props;
-    const getClassesLi = (id) => cn({
+  getClassesLi = (id) => {
+    const { selectedNode } = this.props;
+    return cn({
       'list-group-item': true,
       'active': selectedNode.id === id,
     });
+  };
+
+  render() {
+    const {
+      parentId,
+      ...props
+    } = this.props;
 
     return (
       this.getChildren(parentId).map((child) => {
           return (
-            <li key={child.id} onClick={this.handleClick(child.id)}
-                 className={getClassesLi(child.id)}
-            onMouseOver={e =>{
-              e.stopPropagation();
-              e.currentTarget.classList.add('hover');
-            }}
-            onMouseOut={e => {
-              e.stopPropagation();
-              e.currentTarget.classList.remove('hover');
-            }}
-            >
+            <li key={child.id} onClick={this.nodesFetch(child.id)}
+                className={this.getClassesLi(child.id)}
+                onMouseOver={e => {
+                  e.stopPropagation();
+                  e.currentTarget.classList.add('hover');
+                }}
+                onMouseOut={e => {
+                  e.stopPropagation();
+                  e.currentTarget.classList.remove('hover');
+                }}>
 
               <span className="node-name">
                 {child.name}
@@ -66,12 +63,11 @@ class TreeItem extends React.Component {
                   <i className="fa fa-arrow-up"/>
                 </button>
               </span>
-              <div className="br" />
-              <ul><TreeItem parentId={child.id} nodes={nodes} fetchNodes={fetchNodes}
-                        setNodeSelected={setNodeSelected}
-                        selectedNode={selectedNode}
-                        toggleItem={toggleItem}
-              /></ul>
+
+              <div className="br"/>
+              <ul>
+                <TreeItem parentId={child.id} {...props}/>
+              </ul>
             </li>
           )
         }
@@ -80,9 +76,4 @@ class TreeItem extends React.Component {
   }
 }
 
-const mapStateToProps = () => {
-
-  return {}
-};
-
-export default connect(mapStateToProps)(TreeItem);
+export default TreeItem;
