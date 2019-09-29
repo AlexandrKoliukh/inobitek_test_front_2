@@ -8,7 +8,7 @@ const ErrorIndicator = () => {
       <img src={icon} alt="error-icon" className="error-icon"/>
       <span className="boom">BOOM!</span>
       <span>
-				Check your network
+				Network problems...
 			</span>
     </div>
   );
