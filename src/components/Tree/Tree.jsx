@@ -6,6 +6,7 @@ import TreeItem from '../TreeItem';
 import treeNodesSelector from '../../selectors/makeTree';
 
 import './tree.css';
+import ErrorIndicator from '../ErrorIndicator';
 
 class Tree extends React.Component {
 
@@ -22,7 +23,7 @@ class Tree extends React.Component {
       nodeUpdateState === 'requested' || nodeAddState === 'requested' ||
       nodeRemovingState === 'requested');
 
-    return (
+    return nodesFetchingState === 'failed' ? <ErrorIndicator/> : (
       <div>
         <ul className="list-group">
           {isRequestingState ? <Loader/> : null}
