@@ -5,8 +5,6 @@ import { getChildrenIdsWide } from '../../utils/aroundTree';
 import treeNodesSelector from '../../selectors/makeTree';
 import { reduxForm, SubmissionError } from 'redux-form';
 
-import './delete-node-dialog.css';
-
 class DeleteNodeDialog extends React.Component {
 
   onRemove = async () => {

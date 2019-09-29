@@ -4,7 +4,6 @@ import { Field, reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
 
 // import { ip, name, port } from '../../validators/validation';
-import './new-node-form.css';
 
 const actionCreators = {
   addNode: actions.addNode,
