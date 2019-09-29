@@ -47,7 +47,7 @@ class TreeItem extends React.Component {
     return (
       this.getChildren(parentId).map((child) => {
           return (
-            <div key={child.id} onClick={this.handleClick(child.id)}
+            <li key={child.id} onClick={this.handleClick(child.id)}
                  className={getClassesLi(child.id)}
             onMouseOver={(e) => e.stopPropagation()}
             onMouseDown={(e) => e.stopPropagation()}
@@ -61,13 +61,13 @@ class TreeItem extends React.Component {
                   <i className="fa fa-arrow-up"/>
                 </button>
               </span>
-
-              <TreeItem parentId={child.id} nodes={nodes} fetchNodes={fetchNodes}
+              <div className="br"/>
+              <ul><TreeItem parentId={child.id} nodes={nodes} fetchNodes={fetchNodes}
                         setNodeSelected={setNodeSelected}
                         selectedNode={selectedNode}
                         toggleItem={toggleItem}
-              />
-            </div>
+              /></ul>
+            </li>
           )
         }
       )

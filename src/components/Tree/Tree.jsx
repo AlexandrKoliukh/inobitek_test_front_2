@@ -30,14 +30,14 @@ class Tree extends React.Component {
 
     return (
       <div>
-        <div className="list-group">
+        <ul className="list-group">
           {isRequestingState ? <Loader/> : null}
           <TreeItem parentId={0} nodes={nodes} fetchNodes={fetchNodes}
                     setNodeSelected={setNodeSelected}
                     selectedNode={selectedNode}
                     toggleItem={toggleItem}
           />
-        </div>
+        </ul>
       </div>
     );
   }
