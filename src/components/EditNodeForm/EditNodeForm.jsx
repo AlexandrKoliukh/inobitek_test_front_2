@@ -83,6 +83,7 @@ class EditNodeForm extends React.Component {
 
         <div className="form-group">
           <button type="submit" className="btn btn-primary" disabled={submitting}>
+            {submitting && <i className="fa fa-spinner"/>}
             Update
           </button>
           <button className="btn btn-danger" onClick={() => closeModal()} disabled={submitting}>

@@ -44,9 +44,10 @@ class DeleteNodeDialog extends React.Component {
 
         <form onSubmit={handleSubmit(this.onRemove)}>
           <button type="submit" className="btn btn-danger" disabled={submitting}>
+            {submitting && <i className="fa fa-spinner"/>}
             Delete
           </button>
-          <button onClick={() => closeModal()} className="btn btn-secondary">Cancel</button>
+          <button onClick={() => closeModal()} disabled={submitting} className="btn btn-secondary">Cancel</button>
         </form>
       </div>
     )

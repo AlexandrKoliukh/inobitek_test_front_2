@@ -89,9 +89,10 @@ class NewNodeForm extends React.Component {
 
         <div className="form-group">
           <button type="submit" className="btn btn-primary" disabled={submitting}>
+            {submitting && <i className="fa fa-spinner"/>}
             Submit
           </button>
-          <button className="btn btn-danger" onClick={() => closeModal()}>
+          <button className="btn btn-danger" onClick={() => closeModal()} disabled={submitting}>
             Close
           </button>
         </div>

@@ -11,9 +11,17 @@ class Header extends React.Component {
       fetchNodes,
       unsetSelectedNode,
       nodes,
+      nodeAddState,
+      nodeUpdateState,
+      nodeRemovingState,
+      nodesFetchingState,
     } = this.props;
 
-    const buttonProps = selectedNode.id ? {} : {
+    const isRequestingState = (nodesFetchingState === 'requested' ||
+      nodeUpdateState === 'requested' || nodeAddState === 'requested' ||
+      nodeRemovingState === 'requested');
+
+    const buttonProps = selectedNode.id && !isRequestingState ? {} : {
       disabled: 'disabled',
       'data-toggle': 'tooltip',
       'data-placement': 'bottom',
@@ -22,7 +30,8 @@ class Header extends React.Component {
 
     return (
       <div onClick={() => unsetSelectedNode()}>
-        <button className="btn btn-light" onClick={() => fetchNodes(0)} disabled={nodes.length !== 0}>
+        <button className="btn btn-light" onClick={() => fetchNodes(0)}
+                disabled={nodes.length !== 0}>
           <i className="fa fa-angle-down"/>
           View tree
         </button>
@@ -67,10 +76,15 @@ const mapStateToProps = (state) => {
   return {
     selectedNode: state.selectedNode,
     nodes: state.nodes,
+    nodesFetchingState: state.nodesFetchingState,
+    nodeAddState: state.nodeAddState,
+    nodeUpdateState: state.nodeUpdateState,
+    nodeRemovingState: state.nodeRemovingState,
   }
 };
 
 const actionCreators = {
+
   openModal: actions.openModal,
   closeModal: actions.closeModal,
   fetchNodes: actions.fetchNodes,
