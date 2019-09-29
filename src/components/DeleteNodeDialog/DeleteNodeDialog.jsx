@@ -3,29 +3,53 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { getChildrenIdsWide } from '../../utils/aroundTree';
 import treeNodesSelector from '../../selectors/makeTree';
+import { reduxForm, SubmissionError } from 'redux-form';
 
+import './delete-node-dialog.css';
 
 class DeleteNodeDialog extends React.Component {
 
-  onRemove = () => {
-    const { removeNode, selectedNode, closeModal, unsetSelectedNode, nodes } = this.props;
+  onRemove = async () => {
+    const {
+      removeNode,
+      selectedNode,
+      closeModal,
+      unsetSelectedNode,
+      nodes,
+    } = this.props;
+
     const childrenIds = getChildrenIdsWide(selectedNode.id, nodes);
-    removeNode(selectedNode, childrenIds);
-    closeModal();
-    unsetSelectedNode();
+    return await new Promise(async (resolve, reject) => {
+      try {
+        await removeNode(selectedNode, childrenIds);
+        await resolve(true);
+        closeModal();
+        unsetSelectedNode();
+      } catch (e) {
+        reject(new SubmissionError({
+          _error: e,
+        }));
+      }
+    });
+
   };
 
   render() {
 
-    const { closeModal } = this.props;
+    const { closeModal, error, handleSubmit, submitting } = this.props;
 
     return (
       <div>
         <p>Nested elements will deleted too</p>
-        <button onClick={this.onRemove}
-                className="btn btn-danger">Delete
-        </button>
-        <button onClick={() => closeModal()} className="btn btn-secondary">Cancel</button>
+
+        {error && <p><strong className="danger-message">{error.message}</strong></p>}
+
+        <form onSubmit={handleSubmit(this.onRemove)}>
+          <button type="submit" className="btn btn-danger" disabled={submitting}>
+            Delete
+          </button>
+          <button onClick={() => closeModal()} className="btn btn-secondary">Cancel</button>
+        </form>
       </div>
     )
   }
@@ -45,4 +69,8 @@ const actionCreators = {
   unsetSelectedNode: actions.unsetSelectedNode,
 };
 
-export default connect(mapStateToProps, actionCreators)(DeleteNodeDialog);
+const initFormState = reduxForm({
+  form: 'deleteNodeDialog',
+})(DeleteNodeDialog);
+
+export default connect(mapStateToProps, actionCreators)(initFormState);

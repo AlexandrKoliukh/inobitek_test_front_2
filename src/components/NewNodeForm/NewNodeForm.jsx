@@ -16,7 +16,7 @@ class NewNodeForm extends React.Component {
   handleSubmit = async (values) => {
     const { addNode, selectedNode, reset } = this.props;
     const parentId = selectedNode ? selectedNode.id : 0;
-    const a = await new Promise(async (resolve, reject) => {
+    return await new Promise(async (resolve, reject) => {
       try {
         await addNode({ ...values, parentId });
         await resolve(true);
@@ -27,15 +27,11 @@ class NewNodeForm extends React.Component {
         }));
       }
     });
-    console.log(a);
-    return a;
   };
 
 
   render() {
     const { handleSubmit, submitting, closeModal, error, submitSucceeded } = this.props;
-
-    console.log(this.props);
 
     const renderForm = () => (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
