@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
 
 // import { ip, name, port } from '../../validators/validation';
@@ -12,15 +12,24 @@ const actionCreators = {
 
 class NewNodeForm extends React.Component {
 
-  handleSubmit = (form) => {
-    const { addNode, selectedNode, closeModal } = this.props;
+  handleSubmit = (values) => {
+    const { addNode, selectedNode, reset } = this.props;
     const parentId = selectedNode ? selectedNode.id : 0;
-    addNode({ ...form, parentId });
-    closeModal();
+    return new Promise(async (resolve, reject) => {
+      try {
+        await addNode({ ...values, parentId });
+        await resolve(true);
+      } catch (e) {
+        reject(e);
+      }
+    }).then(() => reset())
   };
 
+
   render() {
-    const { handleSubmit, submitting, closeModal } = this.props;
+    const { handleSubmit, submitting, closeModal, submitFailed } = this.props;
+
+    console.log(this.props);
 
     const renderForm = () => (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
@@ -63,12 +72,13 @@ class NewNodeForm extends React.Component {
             />
           </div>
         </div>
+        {submitFailed && <div><strong>Error</strong></div>}
         <div className="form-group">
           <button type="submit" className="btn btn-primary" disabled={submitting}>
             Submit
           </button>
           <button className="btn btn-danger" onClick={() => closeModal()}>
-            Cancel
+            Close
           </button>
         </div>
       </form>
