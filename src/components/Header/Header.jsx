@@ -21,7 +21,9 @@ class Header extends React.Component {
       nodeUpdateState === 'requested' || nodeAddState === 'requested' ||
       nodeRemovingState === 'requested');
 
-    const buttonProps = selectedNode.id && !isRequestingState ? {} : {
+    const buttonProps = selectedNode.id && !isRequestingState ? {
+      disabled: nodesFetchingState === 'failed',
+    } : {
       disabled: 'disabled',
       'data-toggle': 'tooltip',
       'data-placement': 'bottom',
