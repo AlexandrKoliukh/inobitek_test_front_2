@@ -5,7 +5,7 @@ const validate = values => {
   } else if (values.name.length > 15) {
     errors.name = 'Must be 15 characters or less'
   }
-  if (!/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i.test(values.ip)) {
+  if (!/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/i.test(values.ip)) {
     errors.ip = 'Invalid ip address'
   }
   if (values.port < 1 || values.port > 65535) {
