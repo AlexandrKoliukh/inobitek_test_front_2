@@ -4,6 +4,7 @@ import { Field, reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
 
 // import { ip, name, port } from '../../validators/validation';
+import './new-node-form.css';
 
 const actionCreators = {
   addNode: actions.addNode,
@@ -12,22 +13,27 @@ const actionCreators = {
 
 class NewNodeForm extends React.Component {
 
-  handleSubmit = (values) => {
+  handleSubmit = async (values) => {
     const { addNode, selectedNode, reset } = this.props;
     const parentId = selectedNode ? selectedNode.id : 0;
-    return new Promise(async (resolve, reject) => {
+    const a = await new Promise(async (resolve, reject) => {
       try {
         await addNode({ ...values, parentId });
         await resolve(true);
+        reset();
       } catch (e) {
-        reject(e);
+        reject(new SubmissionError({
+          _error: e,
+        }));
       }
-    }).then(() => reset())
+    });
+    console.log(a);
+    return a;
   };
 
 
   render() {
-    const { handleSubmit, submitting, closeModal, submitFailed } = this.props;
+    const { handleSubmit, submitting, closeModal, error, submitSucceeded } = this.props;
 
     console.log(this.props);
 
@@ -72,7 +78,20 @@ class NewNodeForm extends React.Component {
             />
           </div>
         </div>
-        {submitFailed && <div><strong>Error</strong></div>}
+
+        {error && (
+          <div>
+            <strong className="danger-message">{error.message}</strong>
+            <p>{error.response && 'Message: Node with same data exist'}</p>
+          </div>
+        )}
+
+        {submitSucceeded && (
+          <p>
+            <strong className="success-message">Added success!</strong>
+          </p>
+        )}
+
         <div className="form-group">
           <button type="submit" className="btn btn-primary" disabled={submitting}>
             Submit
