@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
 
 // import { ip, name, port } from '../../validators/validation';
@@ -13,15 +13,24 @@ const actionCreators = {
 
 class EditNodeForm extends React.Component {
 
-  handleSubmit = (form) => {
+  handleSubmit = async (form) => {
     const { updateNode, selectedNode, closeModal, unsetSelectedNode } = this.props;
-    updateNode({ ...form, id: selectedNode.id, parentId: selectedNode.parent_id });
-    closeModal();
-    unsetSelectedNode();
+    return await new Promise(async (resolve, reject) => {
+      try {
+        await updateNode({ ...form, id: selectedNode.id, parentId: selectedNode.parent_id });
+        await resolve(true);
+        closeModal();
+        unsetSelectedNode();
+      } catch (e) {
+        reject(new SubmissionError({
+          _error: e,
+        }));
+      }
+    });
   };
 
   render() {
-    const { handleSubmit, submitting, closeModal } = this.props;
+    const { handleSubmit, submitting, closeModal, error } = this.props;
 
     const renderForm = () => (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
@@ -64,11 +73,19 @@ class EditNodeForm extends React.Component {
             />
           </div>
         </div>
+
+        {error && (
+          <div>
+            <strong className="danger-message">{error.message}</strong>
+            <p>{error.response && 'Message: Node with same data exist'}</p>
+          </div>
+        )}
+
         <div className="form-group">
           <button type="submit" className="btn btn-primary" disabled={submitting}>
             Update
           </button>
-          <button className="btn btn-danger" onClick={() => closeModal()}>
+          <button className="btn btn-danger" onClick={() => closeModal()} disabled={submitting}>
             Cancel
           </button>
         </div>
