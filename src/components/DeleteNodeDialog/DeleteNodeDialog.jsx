@@ -8,11 +8,11 @@ import treeNodesSelector from '../../selectors/makeTree';
 class DeleteNodeDialog extends React.Component {
 
   onRemove = () => {
-    const { removeNode, selectedNode, closeModal, setNodeSelected, nodes } = this.props;
+    const { removeNode, selectedNode, closeModal, unsetSelectedNode, nodes } = this.props;
     const childrenIds = getChildrenIdsWide(selectedNode.id, nodes);
     removeNode(selectedNode, childrenIds);
     closeModal();
-    setNodeSelected({});
+    unsetSelectedNode();
   };
 
   render() {
@@ -42,7 +42,7 @@ const mapStateToProps = (state) => {
 const actionCreators = {
   closeModal: actions.closeModal,
   removeNode: actions.removeNode,
-  setNodeSelected: actions.setNodeSelected,
+  unsetSelectedNode: actions.unsetSelectedNode,
 };
 
 export default connect(mapStateToProps, actionCreators)(DeleteNodeDialog);

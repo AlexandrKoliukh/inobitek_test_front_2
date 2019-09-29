@@ -7,7 +7,6 @@ class Header extends React.Component {
   render() {
     const {
       selectedNode,
-      fetchNodes,
       openModal,
     } = this.props;
 

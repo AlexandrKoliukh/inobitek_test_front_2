@@ -7,6 +7,8 @@ import routes from '../routes';
 const fetchedParentIds = [];
 
 export const setNodeSelected = createAction('NODE_SET_SELECTED');
+export const unsetSelectedNode = createAction('NODE_UNSET_SELECTED');
+
 export const toggleUpItem = createAction('TREE_ITEM_TOGGLE_UP');
 
 export const openModal = createAction('MODAL_OPEN');

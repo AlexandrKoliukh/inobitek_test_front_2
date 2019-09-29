@@ -46,10 +46,10 @@ class Modal extends React.Component {
       >
         <div className="modal-container">
           <h2 id="simple-modal-title">
-            {modalState.header || ''}
+            {modalState.header}
           </h2>
           <hr/>
-          {modalState.body || ''}
+          {modalState.body}
         </div>
       </SimpleModal>
     )

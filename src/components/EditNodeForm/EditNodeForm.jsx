@@ -9,14 +9,16 @@ import * as actions from '../../actions';
 const actionCreators = {
   updateNode: actions.updateNode,
   closeModal: actions.closeModal,
+  unsetSelectedNode: actions.unsetSelectedNode,
 };
 
 class EditNodeForm extends React.Component {
 
   handleSubmit = (form) => {
-    const { updateNode, selectedNode, closeModal } = this.props;
+    const { updateNode, selectedNode, closeModal, unsetSelectedNode } = this.props;
     updateNode({ ...form, id: selectedNode.id, parentId: selectedNode.parent_id });
     closeModal();
+    unsetSelectedNode();
   };
 
   render() {
