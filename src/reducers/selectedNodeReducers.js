@@ -5,7 +5,7 @@ const selectedNode = handleActions({
   [actions.setNodeSelected](state, { payload }) {
     return { ...payload };
   },
-  [actions.unsetSelectedNode](state) {
+  [actions.unsetSelectedNode]() {
     return {};
   },
 }, {});

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -35,7 +34,7 @@ class EditNodeForm extends React.Component {
                    type="text"
                    maxLength="30"
                    className="form-control"
-                   // normalize={name}
+              // normalize={name}
             />
           </div>
         </div>
@@ -48,7 +47,7 @@ class EditNodeForm extends React.Component {
                    type="text"
                    maxLength="15"
                    className="form-control"
-                   // normalize={ip}
+              // normalize={ip}
             />
           </div>
         </div>
@@ -61,7 +60,7 @@ class EditNodeForm extends React.Component {
                    type="text"
                    maxLength="10"
                    className="form-control"
-                   // normalize={port}
+              // normalize={port}
             />
           </div>
         </div>

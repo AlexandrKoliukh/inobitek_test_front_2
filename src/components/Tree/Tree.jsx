@@ -23,18 +23,15 @@ class Tree extends React.Component {
       nodeRemovingState,
     } = this.props;
 
+    console.log(nodes);
+
     const isRequestingState = (nodesFetchingState === 'requested' ||
       nodeUpdateState === 'requested' || nodeAddState === 'requested' ||
       nodeRemovingState === 'requested');
 
     return (
       <div>
-        <Header/>
         <div className="list-group">
-          <div className="list-group-item" onClick={() => fetchNodes(0)}>
-            <i className="fa fa-angle-down"/>
-            Root
-          </div>
           {isRequestingState ? <Loader/> : null}
           <TreeItem parentId={0} nodes={nodes} fetchNodes={fetchNodes}
                     setNodeSelected={setNodeSelected}
