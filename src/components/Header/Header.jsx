@@ -29,7 +29,7 @@ class Header extends React.Component {
     };
 
     return (
-      <div onClick={() => unsetSelectedNode()}>
+      <div onClick={() => unsetSelectedNode()} className="sticky-top">
         <button className="btn btn-light" onClick={() => fetchNodes(0)}
                 disabled={nodes.length !== 0}>
           <i className="fa fa-angle-down"/>

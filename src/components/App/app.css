@@ -5,3 +5,7 @@
 .success-message {
     color: green;
 }
+
+body {
+    padding: 20px 0;
+}
