@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
-import NodeForm from '../../NodeForm/NodeForm';
+import NodeForm from '../NodeForm/NodeForm';
+import validate from '../../validators/validate';
 
 const actionCreators = {
   updateNode: actions.updateNode,
@@ -29,7 +30,7 @@ class EditNodeForm extends React.Component {
   };
 
   render() {
-    const { handleSubmit, submitting, closeModal, error } = this.props;
+    const { handleSubmit, submitting, closeModal, error, invalid } = this.props;
 
     const renderForm = () => (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
@@ -42,7 +43,7 @@ class EditNodeForm extends React.Component {
         )}
 
         <div className="form-group">
-          <button type="submit" className="btn btn-primary" disabled={submitting}>
+          <button type="submit" className="btn btn-primary" disabled={submitting || invalid}>
             {submitting && <i className="fa fa-spinner"/>}
             Update
           </button>
@@ -70,6 +71,7 @@ const mapStateToProps = (state) => {
 
 const initFormState = reduxForm({
   form: 'editNodeForm',
+  validate,
   enableReinitialize: true,
 })(EditNodeForm);
 

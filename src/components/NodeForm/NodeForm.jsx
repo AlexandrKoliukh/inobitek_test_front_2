@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { ip, name, port } from '../validators/normalizeFields';
+import { ip, name, port } from '../../validators/normalizeFields';
 
 const renderField = ({ input, label, meta: { touched, error } }) => (
   <div>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
 import validate from '../../validators/validate';
-import NodeForm from '../../NodeForm/NodeForm';
+import NodeForm from '../NodeForm/NodeForm';
 
 const actionCreators = {
   addNode: actions.addNode,
@@ -29,11 +29,13 @@ class NewNodeForm extends React.Component {
   };
 
   render() {
-    const { handleSubmit, submitting, closeModal, error, submitSucceeded, pristine } = this.props;
+    const { handleSubmit, submitting, closeModal, error, submitSucceeded, invalid } = this.props;
+
+    console.log(this.props);
 
     const renderForm = () => (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
-          <NodeForm/>
+        <NodeForm/>
         {error && (
           <div>
             <strong className="danger-message">{error.message}</strong>
@@ -48,7 +50,7 @@ class NewNodeForm extends React.Component {
         )}
 
         <div className="form-group">
-          <button type="submit" className="btn btn-primary" disabled={submitting || pristine}>
+          <button type="submit" className="btn btn-primary" disabled={submitting || invalid}>
             {submitting && <i className="fa fa-spinner"/>}
             Submit
           </button>
