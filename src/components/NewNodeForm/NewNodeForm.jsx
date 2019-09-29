@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm, SubmissionError } from 'redux-form';
+import { reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
-
-// import { ip, name, port } from '../../validators/validation';
+import validate from '../../validators/validate';
+import NodeForm from '../../NodeForm/NodeForm';
 
 const actionCreators = {
   addNode: actions.addNode,
@@ -28,52 +28,12 @@ class NewNodeForm extends React.Component {
     });
   };
 
-
   render() {
-    const { handleSubmit, submitting, closeModal, error, submitSucceeded } = this.props;
+    const { handleSubmit, submitting, closeModal, error, submitSucceeded, pristine } = this.props;
 
     const renderForm = () => (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
-        <div className="form-group">
-          <label>Name</label>
-          <div>
-            <Field name="name"
-                   required
-                   component="input"
-                   type="text"
-                   maxLength="30"
-                   className="form-control"
-              // normalize={name}
-            />
-          </div>
-        </div>
-        <div className="form-group">
-          <label>IP</label>
-          <div>
-            <Field name="ip"
-                   required
-                   component="input"
-                   type="text"
-                   maxLength="15"
-                   className="form-control"
-              // normalize={ip}
-            />
-          </div>
-        </div>
-        <div className="form-group">
-          <label>Port</label>
-          <div>
-            <Field name="port"
-                   required
-                   component="input"
-                   type="text"
-                   maxLength="10"
-                   className="form-control"
-              // normalize={port}
-            />
-          </div>
-        </div>
-
+          <NodeForm/>
         {error && (
           <div>
             <strong className="danger-message">{error.message}</strong>
@@ -88,7 +48,7 @@ class NewNodeForm extends React.Component {
         )}
 
         <div className="form-group">
-          <button type="submit" className="btn btn-primary" disabled={submitting}>
+          <button type="submit" className="btn btn-primary" disabled={submitting || pristine}>
             {submitting && <i className="fa fa-spinner"/>}
             Submit
           </button>
@@ -112,6 +72,7 @@ const mapStateToProps = (state) => {
 
 const initFormState = reduxForm({
   form: 'newNodeForm',
+  validate,
 })(NewNodeForm);
 
 export default connect(mapStateToProps, actionCreators)(initFormState);
