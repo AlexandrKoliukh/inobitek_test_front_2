@@ -6,7 +6,6 @@ import TreeItem from '../TreeItem';
 import treeNodesSelector from '../../selectors/makeTree';
 
 import './tree.css';
-import Header from '../Header/Header';
 
 class Tree extends React.Component {
 
