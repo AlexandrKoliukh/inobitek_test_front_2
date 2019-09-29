@@ -8,6 +8,29 @@ import DeleteNodeDialog from '../DeleteNodeDialog';
 
 import './modal.css';
 
+const getModalState = (selectedNode, data) => {
+  const modalStates = {
+    add: {
+      header: `Add node to "${selectedNode.name || 'root'}"`,
+      body: <NewNodeForm/>,
+    },
+    edit: {
+      header: `Edit node "${selectedNode.name}"`,
+      body: <EditNodeForm/>,
+    },
+    delete: {
+      header: `Remove node "${selectedNode.name}"?`,
+      body: <DeleteNodeDialog/>,
+    },
+    none: {
+      header: '',
+      body: '',
+    }
+  };
+
+  return modalStates[data];
+};
+
 class Modal extends React.Component {
 
   render() {
@@ -17,26 +40,9 @@ class Modal extends React.Component {
       selectedNode,
     } = this.props;
 
-    const modalStates = {
-      add: {
-        header: `Add node to "${selectedNode.name || 'root'}"`,
-        body: <NewNodeForm/>,
-      },
-      edit: {
-        header: `Edit node "${selectedNode.name}"`,
-        body: <EditNodeForm/>,
-      },
-      delete: {
-        header: `Remove node "${selectedNode.name}"?`,
-        body: <DeleteNodeDialog/>,
-      },
-      none: {
-        header: '',
-        body: '',
-      }
-    };
 
-    const modalState = modalStates[data];
+
+    const modalState = getModalState(selectedNode, data);
     return (
       <SimpleModal
         aria-labelledby="simple-modal-title"
