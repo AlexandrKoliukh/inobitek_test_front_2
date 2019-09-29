@@ -49,11 +49,14 @@ class TreeItem extends React.Component {
           return (
             <li key={child.id} onClick={this.handleClick(child.id)}
                  className={getClassesLi(child.id)}
-            onMouseOver={(e) => {
+            onMouseOver={e =>{
               e.stopPropagation();
-              console.log(e.target)
+              e.currentTarget.classList.add('hover');
             }}
-            onMouseOut={(e) => e.stopPropagation()}
+            onMouseOut={e => {
+              e.stopPropagation();
+              e.currentTarget.classList.remove('hover');
+            }}
             >
 
               <span className="node-name">

@@ -4,9 +4,9 @@
     border-radius: 0 !important;
 }
 
-.list-group-item:hover {
+.hover {
     cursor: pointer;
-    background-color: silver;
+    background-color: silver !important;
     border: 1px solid rgba(34, 14, 255, 0.5) !important;
 }
 
