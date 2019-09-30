@@ -56,9 +56,7 @@ class TreeItem extends React.Component {
                   <i className="fa fa-arrow-up"/>
                 </button>
               </span>
-              <React.Fragment>
-                <TreeItem parentId={child.id} {...props} leftShift={leftShift + 1}/>
-              </React.Fragment>
+              <TreeItem parentId={child.id} {...props} leftShift={leftShift + 1}/>
             </React.Fragment>
           )
         }
