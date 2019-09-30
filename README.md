@@ -8,8 +8,8 @@
     
 Change port and host in the /routes.js
     
-    const host = your server host;
-    const port = your server port;
+    const host = your server host; localhost default
+    const port = your server port; 3001 default
     
 Run App
 
