@@ -18,11 +18,9 @@ const nodes = handleActions({
   },
   [actions.updateNodeSuccess](state, { payload }) {
     const { node } = payload.response.data;
-    const stateWithoutUpdatedNode = state.filter(i => i.id !== node.id);
-    return [...stateWithoutUpdatedNode, node];
-    // const index = state.findIndex((item) => item.id === node.id);
-    // const newItem = { ...state[index], node };
-    // return [...state.slice(0, index), newItem, ...state.slice(index + 1)];
+    const index = state.findIndex((item) => item.id === node.id);
+    const newItem = { ...state[index], ...node };
+    return [...state.slice(0, index), newItem, ...state.slice(index + 1)];
   },
   [actions.toggleUpItem](state, { payload: { deleteIds } }) {
     return [...state.filter(i => !_.includes(deleteIds, i.id))]
