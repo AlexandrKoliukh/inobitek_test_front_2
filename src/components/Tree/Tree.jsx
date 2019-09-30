@@ -25,10 +25,8 @@ class Tree extends React.Component {
 
     return nodesFetchingState === 'failed' ? <ErrorIndicator/> : (
       <div className="list-group">
-        <React.Fragment>
           {isRequestingState ? <Loader/> : null}
           <TreeItem parentId={0} {...props} leftShift={0}/>
-        </React.Fragment>
       </div>
     );
   }
