@@ -6,7 +6,7 @@ const renderField = ({ input, label, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} type="text" className="form-control" required/>
+      <input {...input} type="text" className="form-control" required maxLength="15"/>
       {touched && (error && <span className="danger-message">{error}</span>)}
     </div>
   </div>
@@ -20,7 +20,6 @@ const NodeFormFields = () => {
           <Field name="name"
                  label="Name"
                  component={renderField}
-                 maxLength="15"
                  normalize={name}
           />
         </div>
@@ -30,7 +29,6 @@ const NodeFormFields = () => {
           <Field name="ip"
                  label="Ip"
                  component={renderField}
-                 maxLength="15"
                  normalize={ip}
           />
         </div>
@@ -40,7 +38,6 @@ const NodeFormFields = () => {
           <Field name="port"
                  label="Port"
                  component={renderField}
-                 maxLength="5"
                  normalize={port}
           />
         </div>

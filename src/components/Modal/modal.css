@@ -1,10 +1,12 @@
 .modal-container {
     position: absolute;
-    width: 50%;
-    min-width: 400px;
+    /*width: 50%;*/
+    width: 450px;
+    /*max-width: 600px;*/
     background-color: #eceeec;
     border: 2px solid #000;
     padding: 20px 40px;
     top: 10%;
-    left: 10%;
+    left: 50%;
+    margin-left: -225px;
 }
