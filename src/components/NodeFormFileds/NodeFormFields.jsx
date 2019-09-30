@@ -12,7 +12,7 @@ const renderField = ({ input, label, meta: { touched, error } }) => (
   </div>
 );
 
-const NodeForm = () => {
+const NodeFormFields = () => {
   const renderForm = () => (
     <>
       <div className="form-group">
@@ -51,4 +51,4 @@ const NodeForm = () => {
   return renderForm();
 };
 
-export default NodeForm;
+export default NodeFormFields;

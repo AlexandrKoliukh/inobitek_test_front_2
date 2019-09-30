@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
-import NodeForm from '../NodeForm/NodeForm';
+import NodeFormFields from '../NodeFormFileds/NodeFormFields';
 import validate from '../../validators/validate';
 
 const actionCreators = {
@@ -34,7 +34,7 @@ class EditNodeForm extends React.Component {
 
     const renderForm = () => (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
-        <NodeForm/>
+        <NodeFormFields/>
         {error && (
           <div>
             <strong className="danger-message">{error.message}</strong>
