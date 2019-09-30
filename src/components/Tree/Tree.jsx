@@ -24,11 +24,9 @@ class Tree extends React.Component {
       nodeRemovingState === 'requested');
 
     return nodesFetchingState === 'failed' ? <ErrorIndicator/> : (
-      <div>
-        <ul className="list-group">
+      <div className="list-group">
           {isRequestingState ? <Loader/> : null}
-          <TreeItem parentId={0} {...props}/>
-        </ul>
+          <TreeItem parentId={0} {...props} leftShift={0}/>
       </div>
     );
   }

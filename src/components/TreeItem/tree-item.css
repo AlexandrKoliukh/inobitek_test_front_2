@@ -4,12 +4,7 @@
     border-radius: 0 !important;
 }
 
-.hover {
+.list-group-item:hover {
     cursor: pointer;
     background-color: silver !important;
-}
-
-.node-name:before {
-    content: '';
-    border-top: 2px solid black;
 }

@@ -39,36 +39,25 @@ class TreeItem extends React.Component {
   render() {
     const {
       parentId,
+      leftShift,
       ...props
     } = this.props;
 
     return (
       this.getChildren(parentId).map((child) => {
           return (
-            <li key={child.id} onClick={this.nodesFetch(child.id)}
-                className={this.getClassesLi(child.id)}
-                onMouseOver={e => {
-                  e.stopPropagation();
-                  e.currentTarget.classList.add('hover');
-                }}
-                onMouseOut={e => {
-                  e.stopPropagation();
-                  e.currentTarget.classList.remove('hover');
-                }}>
-
-              <span className="node-name">
+            <React.Fragment key={child.id}>
+              <span onClick={this.nodesFetch(child.id)}
+                    style={{ marginLeft: `${leftShift * 20}px` }}
+                    className={this.getClassesLi(child.id)}>
                 {child.name}
                 <button type="button" onClick={this.toggleUp(child.id)}
-                        className="btn btn-secondary btn-sm float-right">
+                        className="btn btn-secondary btn-sm float-left">
                   <i className="fa fa-arrow-up"/>
                 </button>
               </span>
-
-              <div className="br"/>
-              <ul>
-                <TreeItem parentId={child.id} {...props}/>
-              </ul>
-            </li>
+              <TreeItem parentId={child.id} {...props} leftShift={leftShift + 1}/>
+            </React.Fragment>
           )
         }
       )
