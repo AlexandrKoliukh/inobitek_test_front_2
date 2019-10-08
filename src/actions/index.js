@@ -1,4 +1,6 @@
 import axios from 'axios';
+import nodeUrl from 'url';
+import queryString from 'querystring';
 import { createAction } from 'redux-actions';
 import _ from 'lodash';
 
@@ -40,7 +42,13 @@ export const fetchNodes = (parentId) => async (dispatch) => {
   dispatch(fetchNodesRequest());
   try {
     const url = routes.nodesUrl(parentId);
-    const response = await axios.get(url);
+    const parsedUrl = nodeUrl.parse(url);
+    const parsedQuery = queryString.parse(parsedUrl.query);
+    const a = `${parsedUrl.host}${parsedUrl.pathname}`;
+    console.log(parsedUrl);
+    console.log(parsedQuery);
+    console.log(parsedUrl.pathname);
+    const response = await axios.get(a, { params: parsedQuery });
     dispatch(fetchNodesSuccess({ response }));
     fetchedParentIds.push(parentId);
   } catch (e) {

@@ -14,3 +14,9 @@ Change port and host in the /routes.js
 Run App
 
     npm start
+
+<h2>Production build.</h2>
+
+    npm run build
+    
+Replace build to inobitek_test_back/public

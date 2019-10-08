@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
 import App from './components/App/App';
-import * as serviceWorker from './serviceWorker';
 
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
 const devtoolMiddleware = ext && ext();
@@ -24,5 +23,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-
-serviceWorker.unregister();
