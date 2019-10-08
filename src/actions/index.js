@@ -1,10 +1,7 @@
-import axios from 'axios';
-import nodeUrl from 'url';
-import queryString from 'querystring';
 import { createAction } from 'redux-actions';
 import _ from 'lodash';
 
-import routes from '../routes';
+import * as service from '../service';
 
 const fetchedParentIds = [];
 
@@ -41,15 +38,8 @@ export const fetchNodes = (parentId) => async (dispatch) => {
   if (_.includes(fetchedParentIds, parentId)) return;
   dispatch(fetchNodesRequest());
   try {
-    const url = routes.nodesUrl(parentId);
-    const parsedUrl = nodeUrl.parse(url);
-    const parsedQuery = queryString.parse(parsedUrl.query);
-    const a = `${parsedUrl.host}${parsedUrl.pathname}`;
-    console.log(parsedUrl);
-    console.log(parsedQuery);
-    console.log(parsedUrl.pathname);
-    const response = await axios.get(a, { params: parsedQuery });
-    dispatch(fetchNodesSuccess({ response }));
+    const data = await service.getNodesByParentId(parentId);
+    dispatch(fetchNodesSuccess({ data }));
     fetchedParentIds.push(parentId);
   } catch (e) {
     dispatch(fetchNodesFailure());
@@ -60,9 +50,8 @@ export const fetchNodes = (parentId) => async (dispatch) => {
 export const addNode = (node) => async (dispatch) => {
   dispatch(addNodeRequest());
   try {
-    const url = routes.nodeAddUrl();
-    const response = await axios.post(url, node);
-    dispatch(addNodeSuccess({ response }));
+    const data = await service.addNode(node);
+    dispatch(addNodeSuccess({ data }));
   } catch (e) {
     dispatch(addNodeFailure());
     throw e;
@@ -72,9 +61,8 @@ export const addNode = (node) => async (dispatch) => {
 export const removeNode = (node, childrenIds) => async (dispatch) => {
   dispatch(removeNodeRequest());
   try {
-    const url = routes.nodeRemoveUrl();
-    await axios.delete(url, { data: { id: node.id } });
-    dispatch(removeNodeSuccess({ id: node.id, deleteIds: childrenIds }));
+    await service.removeNode(node);
+    dispatch(removeNodeSuccess({ data: { id: node.id, deleteIds: childrenIds } }));
   } catch (e) {
     dispatch(removeNodeFailure());
     throw e;
@@ -84,9 +72,8 @@ export const removeNode = (node, childrenIds) => async (dispatch) => {
 export const updateNode = (node) => async (dispatch) => {
   dispatch(updateNodeRequest());
   try {
-    const url = routes.nodeUpdateUrl();
-    const response = await axios.put(url, node);
-    dispatch(updateNodeSuccess({ response }));
+    const data = await service.updateNode(node);
+    dispatch(updateNodeSuccess({ data }));
   } catch (e) {
     dispatch(updateNodeFailure());
     throw e;
