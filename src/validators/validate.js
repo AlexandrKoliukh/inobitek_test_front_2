@@ -12,6 +12,8 @@ const validate = values => {
   }
   if (!values.port) {
     errors.port = 'Required';
+  } else if (parseInt(values.port) !== +values.port) {
+    errors.port = 'Invalid Port';
   } else if (values.port < 1 || values.port > 65535) {
     errors.port = 'Must be in [1; 65 535]';
   }

@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const mapTree = (fn, node) => {
   const { children } = node;
   if (!children) return fn(node);
@@ -32,9 +30,9 @@ export const getChildrenIdsWide = (id, tree) => {
 
   tree.forEach(i => reduceTree((acc, node) => {
     const { parent_id: parentId, id: nodeId } = node;
-    if (_.includes(acc, parentId)) deleteIds.push(nodeId);
+    if (acc.indexOf(parentId) !== -1) deleteIds.push(nodeId);
 
-    return _.includes(acc, parentId) ? [...acc, nodeId] : acc
+    return acc.indexOf(parentId) !== -1 ? [...acc, nodeId] : acc
   }, i, [id]));
 
   return deleteIds;

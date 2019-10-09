@@ -1,6 +1,5 @@
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
-import _ from 'lodash';
 
 const nodes = handleActions({
   [actions.fetchNodesSuccess](state, { payload }) {
@@ -16,7 +15,7 @@ const nodes = handleActions({
   },
   [actions.removeNodeSuccess](state, { payload }) {
     const { deleteIds, id } = payload.data;
-    return [...state.filter(i => !_.includes([...deleteIds, id], i.id))]
+    return [...state.filter(i => [...deleteIds, id].indexOf(i.id) === -1)]
   },
   [actions.updateNodeSuccess](state, { payload }) {
     const { node } = payload.data;
@@ -25,7 +24,7 @@ const nodes = handleActions({
     return [...state.slice(0, index), newItem, ...state.slice(index + 1)];
   },
   [actions.toggleUpItem](state, { payload: { deleteIds } }) {
-    return [...state.filter(i => !_.includes(deleteIds, i.id))]
+    return [...state.filter(i => deleteIds.indexOf(i.id) === -1)]
   },
 }, []);
 export default nodes;
