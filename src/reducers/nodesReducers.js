@@ -4,13 +4,14 @@ import _ from 'lodash';
 
 const nodes = handleActions({
   [actions.fetchNodesSuccess](state, { payload }) {
-    const { nodes, dataExists, dbError } = payload.data;
-    if (!dataExists && !dbError) return [...state];
+    const { nodes } = payload.data;
+    if (nodes.length === 0) return [...state];
     return [...state, ...nodes];
   },
   [actions.addNodeSuccess](state, { payload }) {
     const { node } = payload.data;
     if (state.length === 0) return []; // for add node when view tree not fetched
+    if (!node) return [...state];
     return [...state, node]
   },
   [actions.removeNodeSuccess](state, { payload }) {

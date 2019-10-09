@@ -1,53 +1,54 @@
-const host = 'localhost';
-const port = '3001';
+const port = 3001;
+const base = process.env.NODE_ENV === 'production' ? '/' : `http://localhost:${port}/`;
 
-const getUrl = (query) => {
-    const base = process.env.NODE_ENV === 'production' ? '/' : `http://${host}:${port}/`;
-    return `${base}${query}`
-};
+const getUrl = (query) => `${base}${query}`;
 
-export const getNodesByParentId = async (parentId) => {
-    const url = getUrl(`getNodesByParentId?parentId=${parentId}`);
-    console.log(url);
-    const res = await fetch(url);
+const getResponse = (res) => {
+    if (!res.ok) {
+      return res.json()
+        .then((data) => Promise.reject(new Error(data.error)));
+    }
     return res.json();
 };
 
-export const addNode = async (node) => {
+export const getNodesByParentId = (parentId) => {
+    const url = getUrl(`getNodesByParentId?parentId=${parentId}`);
+    return fetch(url).then(getResponse);
+};
+
+export const addNode = (node) => {
     const url = getUrl('addNode');
-    const res = await fetch(url, {
+    return fetch(url, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(node),
-    });
-    return res.json();
+    })
+      .then(getResponse);
 };
 
-export const removeNode = async (node) => {
+export const removeNode = (node) => {
     const url = getUrl('deleteNode');
-    const res = await fetch(url, {
+    return fetch(url, {
       method: 'POST',
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({ id: node.id }),
-    });
-    return res.json();
+    }).then(getResponse);
 };
 
-export const updateNode = async (node) => {
+export const updateNode = (node) => {
     const url = getUrl('updateNode');
-    const res = await fetch(url, {
+    return fetch(url, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(node),
-    });
-    return res.json();
+    }).then(getResponse);
 };
