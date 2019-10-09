@@ -1,9 +1,8 @@
 import { createAction } from 'redux-actions';
-import _ from 'lodash';
 
 import * as service from '../service';
 
-const fetchedParentIds = [];
+let fetchedParentIds = [];
 
 export const setNodeSelected = createAction('NODE_SET_SELECTED');
 export const unsetSelectedNode = createAction('NODE_UNSET_SELECTED');
@@ -31,11 +30,11 @@ export const fetchNodesFailure = createAction('NODES_FETCH_FAILURE');
 
 export const toggleItem = (deleteIds, id) => (dispatch) => {
   dispatch(toggleUpItem({ deleteIds }));
-  _.pull(fetchedParentIds, ...deleteIds, id);
+  fetchedParentIds = fetchedParentIds.filter((i) => [...deleteIds, id].indexOf(i) === -1)
 };
 
 export const fetchNodes = (parentId) => async (dispatch) => {
-  if (_.includes(fetchedParentIds, parentId)) return;
+  if (fetchedParentIds.indexOf(parentId) !== -1) return;
   dispatch(fetchNodesRequest());
   try {
     const data = await service.getNodesByParentId(parentId);
