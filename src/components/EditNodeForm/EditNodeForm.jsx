@@ -13,20 +13,16 @@ const actionCreators = {
 
 class EditNodeForm extends React.Component {
 
-  handleSubmit = async (form) => {
+  handleSubmit = (form) => {
     const { updateNode, selectedNode, closeModal, unsetSelectedNode } = this.props;
-    return await new Promise(async (resolve, reject) => {
-      try {
-        await updateNode({ ...form, id: selectedNode.id, parentId: selectedNode.parent_id });
-        await resolve(true);
+    return updateNode({...form, id: selectedNode.id, parentId: selectedNode.parent_id})
+      .then(() => {
         closeModal();
         unsetSelectedNode();
-      } catch (e) {
-        reject(new SubmissionError({
-          _error: e,
-        }));
-      }
-    });
+      })
+      .catch((_error) => {
+        throw new SubmissionError({_error});
+      });
   };
 
   render() {

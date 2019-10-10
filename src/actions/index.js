@@ -33,48 +33,47 @@ export const toggleItem = (deleteIds, id) => (dispatch) => {
   fetchedParentIds = fetchedParentIds.filter((i) => [...deleteIds, id].indexOf(i) === -1)
 };
 
-export const fetchNodes = (parentId) => async (dispatch) => {
+export const fetchNodes = (parentId) => (dispatch) => {
   if (fetchedParentIds.indexOf(parentId) !== -1) return;
   dispatch(fetchNodesRequest());
-  try {
-    const data = await service.getNodesByParentId(parentId);
-    dispatch(fetchNodesSuccess({ data }));
-    fetchedParentIds.push(parentId);
-  } catch (e) {
-    dispatch(fetchNodesFailure());
-    throw e;
-  }
+	return service.getNodesByParentId(parentId)
+		.then((data) => {
+			dispatch(fetchNodesSuccess({data}));
+			fetchedParentIds.push(parentId);
+		})
+		.catch((error) => {
+			dispatch(fetchNodesFailure());
+			throw error;
+		});
 };
 
-export const addNode = (node) => async (dispatch) => {
+export const addNode = (node) => (dispatch) => {
   dispatch(addNodeRequest());
-  try {
-    const data = await service.addNode(node);
-    dispatch(addNodeSuccess({ data }));
-  } catch (e) {
-    dispatch(addNodeFailure());
-    throw e;
-  }
+	return service.addNode(node)
+		.then((data) => dispatch(addNodeSuccess({data})))
+		.catch((error) => {
+			dispatch(addNodeFailure());
+			throw error;
+		});
 };
 
-export const removeNode = (node, childrenIds) => async (dispatch) => {
+export const removeNode = (node, childrenIds) => (dispatch) => {
   dispatch(removeNodeRequest());
-  try {
-    await service.removeNode(node);
-    dispatch(removeNodeSuccess({ data: { id: node.id, deleteIds: childrenIds } }));
-  } catch (e) {
-    dispatch(removeNodeFailure());
-    throw e;
-  }
+	return service.removeNode(node)
+		.then(() => dispatch(removeNodeSuccess({data: {id: node.id, deleteIds: childrenIds}})))
+		.catch((error) => {
+				dispatch(removeNodeFailure());
+				throw error;
+			}
+		);
 };
 
-export const updateNode = (node) => async (dispatch) => {
+export const updateNode = (node) => (dispatch) => {
   dispatch(updateNodeRequest());
-  try {
-    const data = await service.updateNode(node);
-    dispatch(updateNodeSuccess({ data }));
-  } catch (e) {
-    dispatch(updateNodeFailure());
-    throw e;
-  }
+	return service.updateNode(node)
+		.then((data) => dispatch(updateNodeSuccess({data})))
+		.catch((error) => {
+			dispatch(updateNodeFailure());
+			throw error;
+		});
 };

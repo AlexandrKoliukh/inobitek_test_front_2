@@ -12,20 +12,14 @@ const actionCreators = {
 
 class NewNodeForm extends React.Component {
 
-  handleSubmit = async (values) => {
+  handleSubmit = (values) => {
     const { addNode, selectedNode, reset } = this.props;
     const parentId = selectedNode ? selectedNode.id : 0;
-    return await new Promise(async (resolve, reject) => {
-      try {
-        await addNode({ ...values, parentId });
-        await resolve(true);
-        reset();
-      } catch (e) {
-        reject(new SubmissionError({
-          _error: e,
-        }));
-      }
-    });
+    return addNode({...values, parentId})
+      .then(() => reset())
+      .catch((_error) => {
+        throw new SubmissionError({_error});
+      });
   };
 
   render() {
@@ -37,7 +31,6 @@ class NewNodeForm extends React.Component {
         {error && (
           <div>
             <strong className="danger-message">{error.message}</strong>
-            <p>{error.response && 'Message: Node with same data exist'}</p>
           </div>
         )}
 

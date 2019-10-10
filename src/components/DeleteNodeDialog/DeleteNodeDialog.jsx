@@ -7,29 +7,20 @@ import { reduxForm, SubmissionError } from 'redux-form';
 
 class DeleteNodeDialog extends React.Component {
 
-  onRemove = async () => {
+  onRemove = () => {
     const {
-      removeNode,
-      selectedNode,
-      closeModal,
-      unsetSelectedNode,
-      nodes,
+      removeNode, selectedNode, closeModal, unsetSelectedNode, nodes,
     } = this.props;
 
     const childrenIds = getChildrenIdsWide(selectedNode.id, nodes);
-    return await new Promise(async (resolve, reject) => {
-      try {
-        await removeNode(selectedNode, childrenIds);
-        await resolve(true);
+    return removeNode(selectedNode, childrenIds)
+      .then(() => {
         closeModal();
         unsetSelectedNode();
-      } catch (e) {
-        reject(new SubmissionError({
-          _error: e,
-        }));
-      }
-    });
-
+      })
+      .catch((_error) => {
+        throw new SubmissionError({_error});
+      });
   };
 
   render() {
