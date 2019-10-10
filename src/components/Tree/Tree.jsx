@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import Loader from '../Loader';
 import * as actions from '../../actions';
 import TreeItem from '../TreeItem';
@@ -34,10 +34,10 @@ class Tree extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    nodesFetchingState: state.nodesFetchingState,
-    nodeAddState: state.nodeAddState,
-    nodeUpdateState: state.nodeUpdateState,
-    nodeRemovingState: state.nodeRemovingState,
+    nodesFetchingState: state.nodes.asyncState.nodesFetchingState,
+    nodeAddState: state.nodes.asyncState.nodeAddState,
+    nodeUpdateState: state.nodes.asyncState.nodeUpdateState,
+    nodeRemovingState: state.nodes.asyncState.nodeRemovingState,
     selectedNode: state.selectedNode,
     nodes: treeNodesSelector(state),
   }

@@ -1,30 +1,122 @@
-import { handleActions } from 'redux-actions';
+import {handleActions} from 'redux-actions';
 import * as actions from '../actions';
 
 const nodes = handleActions({
+  [actions.fetchNodesRequest](state) {
+    return {
+      ...state, asyncState: {
+        ...state.asyncState, nodesFetchingState: 'requested',
+      }
+    };
+  },
+  [actions.fetchNodesFailure](state) {
+    return {
+      ...state, asyncState: {
+        ...state.asyncState, nodesFetchingState: 'failed',
+      }
+    };
+  },
   [actions.fetchNodesSuccess](state, { payload }) {
+    const {data, asyncState} = state;
     const { nodes } = payload.data;
-    if (nodes.length === 0) return [...state];
-    return [...state, ...nodes];
+    if (nodes.length === 0) return {
+      ...state, asyncState: {
+        ...asyncState, nodesFetchingState: 'finished',
+      }
+    };
+    return {
+      ...state, data: [...data, ...nodes], asyncState: {
+        ...asyncState, nodesFetchingState: 'finished',
+      }
+    };
+  },
+
+  [actions.addNodeRequest](state) {
+    return {
+      ...state, asyncState: {
+        ...state.asyncState, nodeAddState: 'requested',
+      }
+    };
+  },
+  [actions.addNodeFailure](state) {
+    return {
+      ...state, asyncState: {
+        ...state.asyncState, nodeAddState: 'failed',
+      }
+    };
   },
   [actions.addNodeSuccess](state, { payload }) {
+    const {data, asyncState} = state;
     const { node } = payload.data;
-    if (state.length === 0) return []; // for add node when view tree not fetched
-    if (!node) return [...state];
-    return [...state, node]
+    if (state.length === 0) return {...state, data: []}; // for add node when view tree not fetched
+    if (!node) return {...state};
+    return {
+      ...state, data: [...data, node], asyncState: {
+        ...asyncState, nodeAddState: 'finished',
+      }
+    };
+  },
+
+  [actions.removeNodeRequest](state) {
+    return {
+      ...state, asyncState: {
+        ...state.asyncState, nodeRemovingState: 'requested',
+      }
+    };
+  },
+  [actions.removeNodeFailure](state) {
+    return {
+      ...state, asyncState: {
+        ...state.asyncState, nodeRemovingState: 'failed',
+      }
+    };
   },
   [actions.removeNodeSuccess](state, { payload }) {
+    const {data, asyncState} = state;
     const { deleteIds, id } = payload.data;
-    return [...state.filter(i => [...deleteIds, id].indexOf(i.id) === -1)]
+    return {
+      ...state,
+      data: data.filter(i => [...deleteIds, id].indexOf(i.id) === -1),
+      asyncState: {...asyncState, nodeRemovingState: 'finished'},
+    }
+  },
+
+  [actions.updateNodeRequest](state) {
+    return {
+      ...state, asyncState: {
+        ...state.asyncState, nodeUpdateState: 'requested',
+      }
+    };
+  },
+  [actions.updateNodeFailure](state) {
+    return {
+      ...state, asyncState: {
+        ...state.asyncState, nodeUpdateState: 'failed',
+      }
+    };
   },
   [actions.updateNodeSuccess](state, { payload }) {
+    const {data, asyncState} = state;
     const { node } = payload.data;
-    const index = state.findIndex((item) => item.id === node.id);
-    const newItem = { ...state[index], ...node };
-    return [...state.slice(0, index), newItem, ...state.slice(index + 1)];
+    const index = data.findIndex((item) => item.id === node.id);
+    const newItem = {...data[index], ...node};
+    return {
+      ...state,
+      data: [...data.slice(0, index), newItem, ...data.slice(index + 1)],
+      asyncState: {...asyncState, nodeUpdateState: 'finished'},
+    };
   },
+
   [actions.toggleUpItem](state, { payload: { deleteIds } }) {
     return [...state.filter(i => deleteIds.indexOf(i.id) === -1)]
   },
-}, []);
+}, {
+  data: [], asyncState: {
+    nodeAddState: 'none',
+    nodeUpdateState: 'none',
+    nodeRemovingState: 'none',
+    nodesFetchingState: 'none',
+  }
+});
+
 export default nodes;

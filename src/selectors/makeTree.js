@@ -1,6 +1,6 @@
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 
-const getNodes = (state) => state.nodes;
+const getNodes = (state) => state.nodes.data;
 
 const treeNodesSelector = createSelector(
   getNodes,

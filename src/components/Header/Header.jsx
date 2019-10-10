@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as actions from '../../actions';
 
 class Header extends React.Component {
@@ -73,11 +73,11 @@ class Header extends React.Component {
 const mapStateToProps = (state) => {
   return {
     selectedNode: state.selectedNode,
-    nodes: state.nodes,
-    nodesFetchingState: state.nodesFetchingState,
-    nodeAddState: state.nodeAddState,
-    nodeUpdateState: state.nodeUpdateState,
-    nodeRemovingState: state.nodeRemovingState,
+	  nodes: state.nodes.data,
+	  nodesFetchingState: state.nodes.asyncState.nodesFetchingState,
+	  nodeAddState: state.nodes.asyncState.nodeAddState,
+	  nodeUpdateState: state.nodes.asyncState.nodeUpdateState,
+	  nodeRemovingState: state.nodes.asyncState.nodeRemovingState,
   }
 };
 
