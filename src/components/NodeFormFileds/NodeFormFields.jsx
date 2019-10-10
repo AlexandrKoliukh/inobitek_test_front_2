@@ -12,7 +12,9 @@ const renderField = ({ input, label, meta: { touched, error } }) => (
   </div>
 );
 
-const NodeFormFields = () => {
+const NodeFormFields = (props) => {
+  const { submitSucceeded, error } = props;
+
   const renderForm = () => (
     <>
       <div className="form-group">
@@ -42,6 +44,18 @@ const NodeFormFields = () => {
           />
         </div>
       </div>
+
+      {error && (
+        <div>
+          <strong className="danger-message">{error.message}</strong>
+        </div>
+      )}
+
+      {submitSucceeded && (
+        <p>
+          <strong className="success-message">Success!</strong>
+        </p>
+      )}
     </>
   );
 
