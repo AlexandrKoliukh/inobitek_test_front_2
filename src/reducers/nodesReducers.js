@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 
 const nodes = handleActions({
@@ -17,7 +17,7 @@ const nodes = handleActions({
     };
   },
   [actions.fetchNodesSuccess](state, { payload }) {
-    const {data, asyncState} = state;
+    const { data, asyncState } = state;
     const { nodes } = payload.data;
     if (nodes.length === 0) return {
       ...state, asyncState: {
@@ -46,10 +46,10 @@ const nodes = handleActions({
     };
   },
   [actions.addNodeSuccess](state, { payload }) {
-    const {data, asyncState} = state;
+    const { data, asyncState } = state;
     const { node } = payload.data;
-    if (state.length === 0) return {...state, data: []}; // for add node when view tree not fetched
-    if (!node) return {...state};
+    if (state.length === 0) return { ...state, data: [] }; // for add node when view tree not fetched
+    if (!node) return { ...state };
     return {
       ...state, data: [...data, node], asyncState: {
         ...asyncState, nodeAddState: 'finished',
@@ -72,12 +72,12 @@ const nodes = handleActions({
     };
   },
   [actions.removeNodeSuccess](state, { payload }) {
-    const {data, asyncState} = state;
+    const { data, asyncState } = state;
     const { deleteIds, id } = payload.data;
     return {
       ...state,
       data: data.filter(i => [...deleteIds, id].indexOf(i.id) === -1),
-      asyncState: {...asyncState, nodeRemovingState: 'finished'},
+      asyncState: { ...asyncState, nodeRemovingState: 'finished' },
     }
   },
 
@@ -96,19 +96,20 @@ const nodes = handleActions({
     };
   },
   [actions.updateNodeSuccess](state, { payload }) {
-    const {data, asyncState} = state;
+    const { data, asyncState } = state;
     const { node } = payload.data;
     const index = data.findIndex((item) => item.id === node.id);
-    const newItem = {...data[index], ...node};
+    const newItem = { ...data[index], ...node };
     return {
       ...state,
       data: [...data.slice(0, index), newItem, ...data.slice(index + 1)],
-      asyncState: {...asyncState, nodeUpdateState: 'finished'},
+      asyncState: { ...asyncState, nodeUpdateState: 'finished' },
     };
   },
 
   [actions.toggleUpItem](state, { payload: { deleteIds } }) {
-    return [...state.filter(i => deleteIds.indexOf(i.id) === -1)]
+    const { data } = state;
+    return { ...state, data: data.filter(i => deleteIds.indexOf(i.id) === -1) }
   },
 }, {
   data: [], asyncState: {
