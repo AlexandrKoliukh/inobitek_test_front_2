@@ -2,16 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
-import NodeFormFields from '../../components/NodeFormFileds/NodeFormFields';
 import validate from '../../validators/validate';
+import EditNodeModal from '../../components/EditNodeModal/EditNodeModal';
 
-const actionCreators = {
-  updateNode: actions.updateNode,
-  closeModal: actions.closeModal,
-  unsetSelectedNode: actions.unsetSelectedNode,
-};
-
-class EditNodeForm extends React.Component {
+class EditNodeModalContainer extends React.Component {
 
   handleSubmit = (form) => {
     const { updateNode, selectedNode, closeModal, unsetSelectedNode } = this.props;
@@ -26,15 +20,18 @@ class EditNodeForm extends React.Component {
   };
 
   render() {
-    const { handleSubmit, submitting, closeModal, error, invalid } = this.props;
+    const {
+      handleSubmit, submitting, closeModal, error, invalid, modalState, selectedNode
+    } = this.props;
     return (
-      <NodeFormFields
+      <EditNodeModal
         error={error}
-        type={'Update'}
         invalid={invalid}
         submitting={submitting}
         closeModal={closeModal}
         handleSubmit={handleSubmit(this.handleSubmit)}
+        modalState={modalState}
+        selectedNode={selectedNode}
       />
     );
   }
@@ -48,13 +45,20 @@ const mapStateToProps = (state) => {
     selectedNode,
     editFormState: state.editFormState,
     initialValues: { name, ip, port },
+    modalState: state.modalState,
   }
+};
+
+const actionCreators = {
+  updateNode: actions.updateNode,
+  closeModal: actions.closeModal,
+  unsetSelectedNode: actions.unsetSelectedNode,
 };
 
 const initFormState = reduxForm({
   form: 'editNodeForm',
   validate,
   enableReinitialize: true,
-})(EditNodeForm);
+})(EditNodeModalContainer);
 
 export default connect(mapStateToProps, actionCreators)(initFormState);

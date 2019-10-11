@@ -4,9 +4,9 @@ import * as actions from '../../actions';
 import { getChildrenIdsWide } from '../../utils/aroundTree';
 import treeNodesSelector from '../../selectors/makeTree';
 import { reduxForm, SubmissionError } from 'redux-form';
-import NodeFormFields from '../../components/NodeFormFileds/NodeFormFields';
+import DeleteNodeModal from '../../components/DeleteNodeModal/DeleteNodeModal';
 
-class DeleteNodeDialog extends React.Component {
+class DeleteNodeModalContainer extends React.Component {
   onRemove = () => {
     const {
       removeNode, selectedNode, closeModal, unsetSelectedNode, nodes,
@@ -24,14 +24,16 @@ class DeleteNodeDialog extends React.Component {
   };
 
   render() {
-    const { closeModal, error, handleSubmit, submitting } = this.props;
+    const {
+      closeModal, handleSubmit, submitting, selectedNode, modalState
+    } = this.props;
     return (
-      <NodeFormFields
-        error={error}
-        type={'Delete'}
-        submitting={submitting}
+      <DeleteNodeModal
         closeModal={closeModal}
+        submitting={submitting}
+        selectedNode={selectedNode}
         handleSubmit={handleSubmit(this.onRemove)}
+        modalState={modalState}
       />
     )
   }
@@ -41,6 +43,7 @@ const mapStateToProps = (state) => {
   return {
     selectedNode: state.selectedNode,
     nodes: treeNodesSelector(state),
+    modalState: state.modalState,
   }
 };
 
@@ -52,6 +55,6 @@ const actionCreators = {
 
 const initFormState = reduxForm({
   form: 'deleteNodeDialog',
-})(DeleteNodeDialog);
+})(DeleteNodeModalContainer);
 
 export default connect(mapStateToProps, actionCreators)(initFormState);

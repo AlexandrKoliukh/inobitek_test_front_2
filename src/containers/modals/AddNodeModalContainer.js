@@ -3,14 +3,9 @@ import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
 import validate from '../../validators/validate';
-import NodeFormFields from '../../components/NodeFormFileds/NodeFormFields';
+import AddNodeModal from '../../components/AddNodeModal/AddNodeModal';
 
-const actionCreators = {
-  addNode: actions.addNode,
-  closeModal: actions.closeModal,
-};
-
-class NewNodeForm extends React.Component {
+class AddNodeModalContainer extends React.Component {
   handleSubmit = (values) => {
     const { addNode, selectedNode, reset } = this.props;
     const parentId = selectedNode ? selectedNode.id : 0;
@@ -22,31 +17,39 @@ class NewNodeForm extends React.Component {
   };
 
   render() {
-    const { handleSubmit, submitting, closeModal, error, submitSucceeded, invalid } = this.props;
+    const {
+      handleSubmit, submitting, closeModal, error, submitSucceeded, invalid, selectedNode, modalState
+    } = this.props;
     return (
-      <NodeFormFields
+      <AddNodeModal
         error={error}
         submitSucceeded={submitSucceeded}
-        type={'Add'}
         invalid={invalid}
         submitting={submitting}
         closeModal={closeModal}
         handleSubmit={handleSubmit(this.handleSubmit)}
+        selectedNode={selectedNode}
+        modalState={modalState}
       />
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { selectedNode } = state;
   return {
-    selectedNode,
+    selectedNode: state.selectedNode,
+    modalState: state.modalState,
   }
+};
+
+const actionCreators = {
+  addNode: actions.addNode,
+  closeModal: actions.closeModal,
 };
 
 const initFormState = reduxForm({
   form: 'newNodeForm',
   validate,
-})(NewNodeForm);
+})(AddNodeModalContainer);
 
 export default connect(mapStateToProps, actionCreators)(initFormState);

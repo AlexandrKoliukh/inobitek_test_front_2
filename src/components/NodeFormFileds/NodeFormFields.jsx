@@ -17,8 +17,8 @@ const NodeFormFields = (props) => {
     submitSucceeded, error, closeModal, invalid, type, submitting, handleSubmit
   } = props;
 
-  const renderFields = () => (
-    <>
+  return (
+    <form onSubmit={handleSubmit}>
       <div className="form-group">
         <div>
           <Field name="name"
@@ -46,17 +46,7 @@ const NodeFormFields = (props) => {
           />
         </div>
       </div>
-    </>
-  );
 
-  const buttonType = `btn btn-${type === 'Delete' ? 'danger' : 'primary'}`;
-
-  return (
-    <form onSubmit={handleSubmit}>
-      {type === 'Delete'
-        ? <p>Nested elements will deleted too</p>
-        : renderFields()
-      }
       {error && (
         <div>
           <strong className="danger-message">{error.message}</strong>
@@ -64,11 +54,12 @@ const NodeFormFields = (props) => {
       )}
       {submitSucceeded && (
         <p>
-          <strong className="success-message">Success!</strong>
+          <strong className="success-message">Added success!</strong>
         </p>
       )}
+
       <div className="form-group">
-        <button type="submit" className={buttonType} disabled={submitting || invalid}>
+        <button type="submit" className="btn btn-primary" disabled={submitting || invalid}>
           {submitting && <i className="fa fa-spinner"/>}
           {type}
         </button>
