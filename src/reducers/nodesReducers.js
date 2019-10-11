@@ -48,7 +48,7 @@ const nodes = handleActions({
   [actions.addNodeSuccess](state, { payload }) {
     const { data, asyncState } = state;
     const { node } = payload.data;
-    if (state.length === 0) return { ...state, data: [] }; // for add node when view tree not fetched
+    if (state.data.length === 0) return { ...state, data: [], asyncState: { ...asyncState, nodeAddState: 'finished' } }; // for add node when view tree not fetched
     if (!node) return { ...state };
     return {
       ...state, data: [...data, node], asyncState: {
