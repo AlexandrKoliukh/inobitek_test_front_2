@@ -10,6 +10,11 @@ import Header from '../components/Header/Header';
 
 class AppContainer extends React.Component {
 
+  constructor(props) {
+    super(props);
+    props.fetchNodes(0);
+  }
+
   render() {
     const {
       nodesFetchingState,

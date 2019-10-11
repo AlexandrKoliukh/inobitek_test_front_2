@@ -2,9 +2,7 @@ import React from 'react';
 
 const Header = (props) => {
   const {
-    fetchNodes,
     unsetSelectedNode,
-    nodes,
     nodesFetchingState,
     isRequestingState,
     selectedNode,
@@ -24,11 +22,6 @@ const Header = (props) => {
 
   return (
     <div onClick={() => unsetSelectedNode()} className="sticky-top">
-      <button className="btn btn-light" onClick={() => fetchNodes(0)}
-              disabled={nodes.length !== 0}>
-        <i className="fa fa-angle-down"/>
-        View tree
-      </button>
       <button type="button"
               className="btn btn-success"
               disabled={isRequestingState || nodesFetchingState === 'failed'}
