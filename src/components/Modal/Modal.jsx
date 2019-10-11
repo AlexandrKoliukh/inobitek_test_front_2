@@ -2,33 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SimpleModal from '@material-ui/core/Modal';
 import * as actions from '../../actions';
-import EditNodeForm from '../EditNodeForm';
-import NewNodeForm from '../NewNodeForm';
-import DeleteNodeDialog from '../DeleteNodeDialog';
+import EditNodeForm from '../../containers/forms/EditNodeForm';
+import NewNodeForm from '../../containers/forms/NewNodeForm';
+import DeleteNodeDialog from '../../containers/forms/DeleteNodeDialog';
 
 import './modal.css';
 
 const getModalState = (selectedNode, data) => {
-  const modalStates = {
-    add: {
+  switch (data) {
+    case 'add': return {
       header: `Add node to "${selectedNode.name || 'root'}"`,
       body: <NewNodeForm/>,
-    },
-    edit: {
+    };
+    case 'edit': return {
       header: `Edit node "${selectedNode.name}"`,
       body: <EditNodeForm/>,
-    },
-    delete: {
+    };
+    case 'delete': return {
       header: `Remove node "${selectedNode.name}"?`,
       body: <DeleteNodeDialog/>,
-    },
-    none: {
+    };
+    default: return {
       header: '',
       body: '',
     }
-  };
 
-  return modalStates[data];
+  }
 };
 
 class Modal extends React.Component {
@@ -39,8 +38,6 @@ class Modal extends React.Component {
       closeModal,
       selectedNode,
     } = this.props;
-
-
 
     const modalState = getModalState(selectedNode, data);
     return (

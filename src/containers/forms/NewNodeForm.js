@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
-import * as actions from '../actions';
-import validate from '../validators/validate';
-import NodeFormFields from '../components/NodeFormFileds/NodeFormFields';
+import * as actions from '../../actions';
+import validate from '../../validators/validate';
+import NodeFormFields from '../../components/NodeFormFileds/NodeFormFields';
 
 const actionCreators = {
   addNode: actions.addNode,
@@ -11,41 +11,29 @@ const actionCreators = {
 };
 
 class NewNodeForm extends React.Component {
-
   handleSubmit = (values) => {
     const { addNode, selectedNode, reset } = this.props;
     const parentId = selectedNode ? selectedNode.id : 0;
-    return addNode({...values, parentId})
+    return addNode({ ...values, parentId })
       .then(() => reset())
       .catch((_error) => {
-        throw new SubmissionError({_error});
+        throw new SubmissionError({ _error });
       });
   };
 
   render() {
     const { handleSubmit, submitting, closeModal, error, submitSucceeded, invalid } = this.props;
-
-    const renderForm = () => (
-      <form onSubmit={handleSubmit(this.handleSubmit)}>
-        <NodeFormFields
-          error={error}
-          submitSucceeded={submitSucceeded}
-        />
-
-
-        <div className="form-group">
-          <button type="submit" className="btn btn-primary" disabled={submitting || invalid}>
-            {submitting && <i className="fa fa-spinner"/>}
-            Submit
-          </button>
-          <button className="btn btn-danger" onClick={() => closeModal()} disabled={submitting}>
-            Close
-          </button>
-        </div>
-      </form>
+    return (
+      <NodeFormFields
+        error={error}
+        submitSucceeded={submitSucceeded}
+        type={'Add'}
+        invalid={invalid}
+        submitting={submitting}
+        closeModal={closeModal}
+        handleSubmit={handleSubmit(this.handleSubmit)}
+      />
     );
-
-    return renderForm();
   }
 }
 

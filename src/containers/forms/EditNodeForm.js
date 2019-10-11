@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
-import NodeFormFields from '../NodeFormFileds/NodeFormFields';
+import NodeFormFields from '../../components/NodeFormFileds/NodeFormFields';
 import validate from '../../validators/validate';
 
 const actionCreators = {
@@ -15,42 +15,28 @@ class EditNodeForm extends React.Component {
 
   handleSubmit = (form) => {
     const { updateNode, selectedNode, closeModal, unsetSelectedNode } = this.props;
-    return updateNode({...form, id: selectedNode.id, parentId: selectedNode.parent_id})
+    return updateNode({ ...form, id: selectedNode.id, parentId: selectedNode.parent_id })
       .then(() => {
         closeModal();
         unsetSelectedNode();
       })
       .catch((_error) => {
-        throw new SubmissionError({_error});
+        throw new SubmissionError({ _error });
       });
   };
 
   render() {
     const { handleSubmit, submitting, closeModal, error, invalid } = this.props;
-
-    const renderForm = () => (
-      <form onSubmit={handleSubmit(this.handleSubmit)}>
-        <NodeFormFields/>
-        {error && (
-          <div>
-            <strong className="danger-message">{error.message}</strong>
-            <p>{error.response && 'Message: Node with same data exist'}</p>
-          </div>
-        )}
-
-        <div className="form-group">
-          <button type="submit" className="btn btn-primary" disabled={submitting || invalid}>
-            {submitting && <i className="fa fa-spinner"/>}
-            Update
-          </button>
-          <button className="btn btn-danger" onClick={() => closeModal()} disabled={submitting}>
-            Cancel
-          </button>
-        </div>
-      </form>
+    return (
+      <NodeFormFields
+        error={error}
+        type={'Update'}
+        invalid={invalid}
+        submitting={submitting}
+        closeModal={closeModal}
+        handleSubmit={handleSubmit(this.handleSubmit)}
+      />
     );
-
-    return renderForm();
   }
 }
 
