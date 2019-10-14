@@ -39,6 +39,13 @@ class TreeItem extends React.Component {
     });
   };
 
+  getIconButton = (id, hasChildren) => cn({
+    fa: true,
+    'fa-folder': !fetchedParentIds.includes(id),
+    'fa-folder-open': fetchedParentIds.includes(id) && hasChildren,
+    'fa-file': fetchedParentIds.includes(id) && !hasChildren,
+  });
+
   render() {
     const {
       parentId,
@@ -51,18 +58,24 @@ class TreeItem extends React.Component {
           const hasChildren = this.getChildren(child.id).length !== 0;
           return (
             <React.Fragment key={child.id}>
-              <li onClick={this.nodesFetch(child.id)}
-                  style={{ marginLeft: `${leftShift * 20}px` }}
-                  className={this.getClassesLi(child.id, hasChildren)}>
+              <span onClick={this.nodesFetch(child.id)}
+                    className={this.getClassesLi(child.id, hasChildren)}
+                    style={{ marginLeft: `${leftShift * 20}px` }}
+              >
                 {child.name}
                 <button type="button" onClick={this.toggleUp(child.id)}
                         className="btn btn-secondary btn-sm float-left toggle-btn">
-                  <i className="fa fa-arrow-up"/>
+                  <i className={this.getIconButton(child.id, hasChildren)}/>
                 </button>
-              </li>
+              </span>
+              {/*{!hasChildren ? (*/}
+              {/*  <TreeItem parentId={child.id}*/}
+              {/*            leftShift={leftShift + 1}*/}
+              {/*            {...props}/>*/}
+              {/*) : null}*/}
               <TreeItem parentId={child.id}
-                        {...props}
-                        leftShift={leftShift + 1}/>
+                        leftShift={leftShift + 1}
+                        {...props}/>
             </React.Fragment>
           )
         }
