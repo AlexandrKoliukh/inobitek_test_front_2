@@ -1,19 +1,17 @@
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 
-const modalState = handleActions({
-  [actions.openModal](state, { payload }) {
+const formState = handleActions({
+  [actions.openForm](state, { payload }) {
     return {
-      open: true,
-      data: payload.data,
+      data: payload,
     }
   },
-  [actions.closeModal]() {
+  [actions.closeForm]() {
     return {
-      open: false,
-      data: 'none'
+      data: 'view'
     }
   }
-}, { open: false, data: 'none' });
+}, { data: 'view' });
 
-export default modalState;
+export default formState;

@@ -6,19 +6,19 @@ const renderField = ({ input, label, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} type="text" disabled className="form-control" required maxLength="15"/>
+      <input {...input} type="text" className="form-control" required maxLength="15"/>
       {touched && (error && <span className="danger-message">{error}</span>)}
     </div>
   </div>
 );
 
-const NodeFormFields = (props) => {
+const EditNodeForm = (props) => {
   const {
-    submitSucceeded, error, invalid, type, submitting, handleSubmit
+    submitSucceeded, error, invalid, submitting, onSubmit, onCloseForm
   } = props;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit} className="border border-primary rounded p-2">
       <div className="form-group">
         <div>
           <Field name="name"
@@ -54,18 +54,22 @@ const NodeFormFields = (props) => {
       )}
       {submitSucceeded && (
         <p>
-          <strong className="success-message">Added success!</strong>
+          <strong className="success-message">Updated success!</strong>
         </p>
       )}
-
-      <div className="form-group">
         <button type="submit" className="btn btn-primary" disabled={submitting || invalid}>
           {submitting && <i className="fa fa-spinner"/>}
-          {type}
+          Update
         </button>
-      </div>
+        <button type="button"
+                className="btn btn-secondary"
+                disabled={submitting}
+                onClick={onCloseForm}
+        >
+          Close
+        </button>
     </form>
   );
 };
 
-export default NodeFormFields;
+export default EditNodeForm;

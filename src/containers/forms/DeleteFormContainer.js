@@ -4,18 +4,17 @@ import * as actions from '../../actions';
 import { getChildrenIdsWide } from '../../utils/aroundTree';
 import treeNodesSelector from '../../selectors/makeTree';
 import { reduxForm, SubmissionError } from 'redux-form';
-import DeleteNodeModal from '../../components/DeleteNodeModal/DeleteNodeModal';
+import DeleteNodeForm from '../../components/forms/DeleteNodeForm';
 
-class DeleteNodeModalContainer extends React.Component {
+class DeleteFormContainer extends React.Component {
   onRemove = () => {
     const {
-      removeNode, selectedNode, closeModal, unsetSelectedNode, nodes,
+      removeNode, selectedNode, closeForm, unsetSelectedNode, nodes,
     } = this.props;
     const childrenIds = getChildrenIdsWide(selectedNode.id, nodes);
-
     return removeNode(selectedNode, childrenIds)
       .then(() => {
-        closeModal();
+        closeForm();
         unsetSelectedNode();
       })
       .catch((_error) => {
@@ -25,15 +24,18 @@ class DeleteNodeModalContainer extends React.Component {
 
   render() {
     const {
-      closeModal, handleSubmit, submitting, selectedNode, modalState
+      closeForm, handleSubmit, submitting, selectedNode, formState
     } = this.props;
+
+    if (formState.data !== 'delete') return null;
+
     return (
-      <DeleteNodeModal
-        closeModal={closeModal}
+      <DeleteNodeForm
+        closeForm={closeForm}
         submitting={submitting}
         selectedNode={selectedNode}
-        handleSubmit={handleSubmit(this.onRemove)}
-        modalState={modalState}
+        onSubmit={handleSubmit(this.onRemove)}
+        formState={formState}
       />
     )
   }
@@ -43,18 +45,18 @@ const mapStateToProps = (state) => {
   return {
     selectedNode: state.selectedNode,
     nodes: treeNodesSelector(state),
-    modalState: state.modalState,
+    formState: state.formState,
   }
 };
 
 const actionCreators = {
-  closeModal: actions.closeModal,
+  closeForm: actions.closeForm,
   removeNode: actions.removeNode,
   unsetSelectedNode: actions.unsetSelectedNode,
 };
 
 const initFormState = reduxForm({
   form: 'deleteNodeDialog',
-})(DeleteNodeModalContainer);
+})(DeleteFormContainer);
 
 export default connect(mapStateToProps, actionCreators)(initFormState);

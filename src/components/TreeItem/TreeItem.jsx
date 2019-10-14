@@ -1,5 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
+import { fetchedParentIds } from '../../actions'
 
 import './tree-item.css';
 import { extractChildrenById, getChildrenIdsWide, getNodeById } from '../../utils/aroundTree';
@@ -28,10 +29,12 @@ class TreeItem extends React.Component {
     setNodeSelected(getNodeById(id, nodes));
   };
 
-  getClassesLi = (id) => {
+  getClassesLi = (id, hasChildren) => {
     const { selectedNode } = this.props;
     return cn({
       'list-group-item': true,
+      parent: hasChildren,
+      fetched: fetchedParentIds.includes(id),
       'active': selectedNode.id === id,
     });
   };
@@ -45,18 +48,21 @@ class TreeItem extends React.Component {
 
     return (
       this.getChildren(parentId).map((child) => {
+          const hasChildren = this.getChildren(child.id).length !== 0;
           return (
             <React.Fragment key={child.id}>
-              <span onClick={this.nodesFetch(child.id)}
-                    style={{ marginLeft: `${leftShift * 20}px` }}
-                    className={this.getClassesLi(child.id)}>
+              <li onClick={this.nodesFetch(child.id)}
+                  style={{ marginLeft: `${leftShift * 20}px` }}
+                  className={this.getClassesLi(child.id, hasChildren)}>
                 {child.name}
                 <button type="button" onClick={this.toggleUp(child.id)}
-                        className="btn btn-secondary btn-sm float-left">
+                        className="btn btn-secondary btn-sm float-left toggle-btn">
                   <i className="fa fa-arrow-up"/>
                 </button>
-              </span>
-              <TreeItem parentId={child.id} {...props} leftShift={leftShift + 1}/>
+              </li>
+              <TreeItem parentId={child.id}
+                        {...props}
+                        leftShift={leftShift + 1}/>
             </React.Fragment>
           )
         }

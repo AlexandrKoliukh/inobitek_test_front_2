@@ -12,13 +12,15 @@ const renderField = ({ input, label, meta: { touched, error } }) => (
   </div>
 );
 
-const NodeFormFields = (props) => {
+const ViewNodeForm = (props) => {
   const {
-    submitSucceeded, error, invalid, type, submitting, handleSubmit
+    onSubmit,
+    selectedNode,
+    onClick,
   } = props;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <div className="form-group">
         <div>
           <Field name="name"
@@ -46,26 +48,17 @@ const NodeFormFields = (props) => {
           />
         </div>
       </div>
-
-      {error && (
-        <div>
-          <strong className="danger-message">{error.message}</strong>
-        </div>
-      )}
-      {submitSucceeded && (
-        <p>
-          <strong className="success-message">Added success!</strong>
-        </p>
-      )}
-
       <div className="form-group">
-        <button type="submit" className="btn btn-primary" disabled={submitting || invalid}>
-          {submitting && <i className="fa fa-spinner"/>}
-          {type}
+        <button type="button"
+                disabled={!selectedNode.id}
+                className="btn btn-info"
+                onClick={onClick('edit')}
+        >
+          Change
         </button>
       </div>
     </form>
   );
 };
 
-export default NodeFormFields;
+export default ViewNodeForm;

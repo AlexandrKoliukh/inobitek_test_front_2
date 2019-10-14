@@ -2,15 +2,15 @@ import { createAction } from 'redux-actions';
 
 import * as service from '../service';
 
-let fetchedParentIds = [];
+export let fetchedParentIds = [];
 
 export const setNodeSelected = createAction('NODE_SET_SELECTED');
 export const unsetSelectedNode = createAction('NODE_UNSET_SELECTED');
 
 export const toggleUpItem = createAction('TREE_ITEM_TOGGLE_UP');
 
-export const openModal = createAction('MODAL_OPEN');
-export const closeModal = createAction('MODAL_CLOSE');
+export const openForm = createAction('FORM_OPEN');
+export const closeForm = createAction('FORM_CLOSE');
 
 export const removeNodeRequest = createAction('NODES_REMOVE_REQUEST');
 export const removeNodeSuccess = createAction('NODES_REMOVE_SUCCESS');
@@ -35,11 +35,11 @@ export const toggleItem = (deleteIds, id) => (dispatch) => {
 
 export const fetchNodes = (parentId) => (dispatch) => {
   if (fetchedParentIds.indexOf(parentId) !== -1) return;
+	fetchedParentIds.push(parentId);
   dispatch(fetchNodesRequest());
 	return service.getNodesByParentId(parentId)
 		.then((data) => {
 			dispatch(fetchNodesSuccess({data}));
-			fetchedParentIds.push(parentId);
 		})
 		.catch((error) => {
 			dispatch(fetchNodesFailure());

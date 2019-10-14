@@ -3,10 +3,10 @@ import {reducer as formReducer} from 'redux-form';
 
 import nodes from './nodesReducers';
 import selectedNode from './selectedNodeReducers';
-import modalState from './uiStateReducers';
+import formState from './uiStateReducers';
 
 export default combineReducers({
-  modalState,
+  formState,
   nodes,
   selectedNode,
   form: formReducer,

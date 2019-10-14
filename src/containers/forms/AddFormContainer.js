@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
 import validate from '../../validators/validate';
-import AddNodeModal from '../../components/AddNodeModal/AddNodeModal';
+import AddNodeForm from '../../components/forms/AddNodeForm';
 
-class AddNodeModalContainer extends React.Component {
+class AddFormContainer extends React.Component {
   handleSubmit = (values) => {
     const { addNode, selectedNode, reset } = this.props;
     const parentId = selectedNode ? selectedNode.id : 0;
@@ -16,20 +16,29 @@ class AddNodeModalContainer extends React.Component {
       });
   };
 
+  onCloseForm = (e) => {
+    const { closeForm } = this.props;
+    e.persist();
+    closeForm();
+  };
+
   render() {
     const {
-      handleSubmit, submitting, closeModal, error, submitSucceeded, invalid, selectedNode, modalState
+      handleSubmit, submitting, error, submitSucceeded, invalid, selectedNode, formState
     } = this.props;
+
+    if (formState.data !== 'add') return null;
+
     return (
-      <AddNodeModal
+      <AddNodeForm
         error={error}
         submitSucceeded={submitSucceeded}
         invalid={invalid}
         submitting={submitting}
-        closeModal={closeModal}
-        handleSubmit={handleSubmit(this.handleSubmit)}
+        onCloseForm={this.onCloseForm}
+        onSubmit={handleSubmit(this.handleSubmit)}
         selectedNode={selectedNode}
-        modalState={modalState}
+        formState={formState}
       />
     );
   }
@@ -38,18 +47,18 @@ class AddNodeModalContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     selectedNode: state.selectedNode,
-    modalState: state.modalState,
+    formState: state.formState,
   }
 };
 
 const actionCreators = {
   addNode: actions.addNode,
-  closeModal: actions.closeModal,
+  closeForm: actions.closeForm,
 };
 
 const initFormState = reduxForm({
   form: 'newNodeForm',
   validate,
-})(AddNodeModalContainer);
+})(AddFormContainer);
 
 export default connect(mapStateToProps, actionCreators)(initFormState);
