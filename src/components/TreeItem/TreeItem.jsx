@@ -3,12 +3,16 @@ import cn from 'classnames';
 import { fetchedParentIds } from '../../actions'
 
 import './tree-item.css';
-import { extractChildrenById, getChildrenIdsWide, getNodeById } from '../../utils/aroundTree';
+import { extractChildrenById, getNodeById } from '../../utils/aroundTree';
 
 class TreeItem extends React.Component {
 
-  nodesFetch = (id) => (e) => {
-    e.stopPropagation();
+  toggledItems = [];
+
+  nodesFetch = (id, itemProps) => (e) => {
+    if (itemProps.isToggled) {
+      this.toggle(id, itemProps)(e);
+    }
     const { fetchNodes, setNodeSelected, nodes } = this.props;
     fetchNodes(id);
     setNodeSelected(getNodeById(id, nodes));
@@ -21,30 +25,39 @@ class TreeItem extends React.Component {
     return extractChildrenById(id, nodes);
   };
 
-  toggleUp = (id) => (e) => {
+  toggle = (id, itemProps) => (e) => {
     e.stopPropagation();
-    const { toggleItem, nodes, setNodeSelected } = this.props;
-    const deleteIds = getChildrenIdsWide(id, nodes);
-    toggleItem(deleteIds, id);
+    if (!itemProps.isFetched) {
+      this.nodesFetch(id, itemProps)(e);
+      return;
+    }
+    const { nodes, setNodeSelected } = this.props;
     setNodeSelected(getNodeById(id, nodes));
+    if (itemProps.isToggled) {
+      this.toggledItems = this.toggledItems.filter((i) => i !== id);
+    } else {
+      this.toggledItems = [...this.toggledItems, id];
+    }
   };
 
-  getClassesLi = (id, hasChildren) => {
+  getClassesLi = (id, { hasChildren, isFetched }) => {
     const { selectedNode } = this.props;
     return cn({
       'list-group-item': true,
       parent: hasChildren,
-      fetched: fetchedParentIds.includes(id),
+      fetched: isFetched,
       'active': selectedNode.id === id,
     });
   };
 
-  getIconButton = (id, hasChildren) => cn({
-    fa: true,
-    'fa-folder': !fetchedParentIds.includes(id),
-    'fa-folder-open': fetchedParentIds.includes(id) && hasChildren,
-    'fa-file': fetchedParentIds.includes(id) && !hasChildren,
-  });
+  getButtonIcon = (id, { hasChildren, isFetched, isToggled }) => {
+    return cn({
+      fa: true,
+      'fa-folder': !isFetched || isToggled,
+      'fa-folder-open': isFetched && hasChildren && !isToggled,
+      'fa-file': isFetched && !hasChildren,
+    });
+  };
 
   render() {
     const {
@@ -55,31 +68,36 @@ class TreeItem extends React.Component {
 
     return (
       this.getChildren(parentId).map((child) => {
-          const hasChildren = this.getChildren(child.id).length !== 0;
-          return (
-            <React.Fragment key={child.id}>
-              <span onClick={this.nodesFetch(child.id)}
-                    className={this.getClassesLi(child.id, hasChildren)}
-                    style={{ marginLeft: `${leftShift * 20}px` }}
+        const itemProps = {
+          hasChildren: this.getChildren(child.id).length !== 0,
+          isToggled: this.toggledItems.includes(child.id),
+          isFetched: fetchedParentIds.includes(child.id),
+        };
+
+        return (
+          <React.Fragment key={child.id}>
+            <ul className="list-item-container">
+            <li onClick={this.nodesFetch(child.id, itemProps)}
+                  className={this.getClassesLi(child.id, itemProps)}
+                  // style={{ marginLeft: `${leftShift * 20}px` }}
+            >
+              {child.name}
+              <button type="button"
+                      onClick={this.toggle(child.id, itemProps)}
+                      className="btn btn-secondary btn-sm float-left toggle-btn"
               >
-                {child.name}
-                <button type="button" onClick={this.toggleUp(child.id)}
-                        className="btn btn-secondary btn-sm float-left toggle-btn">
-                  <i className={this.getIconButton(child.id, hasChildren)}/>
-                </button>
-              </span>
-              {/*{!hasChildren ? (*/}
-              {/*  <TreeItem parentId={child.id}*/}
-              {/*            leftShift={leftShift + 1}*/}
-              {/*            {...props}/>*/}
-              {/*) : null}*/}
-              <TreeItem parentId={child.id}
-                        leftShift={leftShift + 1}
-                        {...props}/>
-            </React.Fragment>
-          )
-        }
-      )
+                <i className={this.getButtonIcon(child.id, itemProps)}/>
+              </button>
+            </li>
+              {itemProps.isToggled ? null :
+                <TreeItem parentId={child.id}
+                          leftShift={leftShift + 1}
+                          {...props}/>
+              }
+            </ul>
+          </React.Fragment>
+        )
+      })
     );
   }
 }

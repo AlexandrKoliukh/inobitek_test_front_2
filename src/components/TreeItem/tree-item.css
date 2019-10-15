@@ -1,35 +1,39 @@
 .list-group-item {
     border: none !important;
     border-radius: 0 !important;
-    position: relative;
-    padding-left: 1.2em;
-    overflow: hidden!important;
-    /*left: -10px!important;*/
-}
-
-/*.list-group-item:not(.parent) {*/
-/*    height: 1000px;*/
-/*    border: solid #333;*/
-/*    border-width: 0 0 1px 1px*/
-/*}*/
-
-.list-group-item:not(:first-child):before {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: 1em;
-    width: 15px;
-    border-bottom: 1px solid #333;
-}
-
-.list-group .list-group-item:before {
-    height: 100vh;
-    border: solid #333;
-    border-width: 0 0 1px 1px
+    padding-left: 10px!important;
+    border-left: 1px solid silver !important;
 }
 
 .list-group-item:hover {
     cursor: pointer;
     background-color: silver !important;
 }
+
+.root-item {
+    border: none!important;
+}
+
+.list-group-item:not(.root-item):before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 1.3em;
+    width: 10px;
+    /*height: 100vh;*/
+    border: solid silver;
+    border-width: 0 0 1px 1px;
+}
+
+ul:not(:first-child) {
+    border-left: 1px solid silver;
+}
+
+/*.list-item-container {*/
+/*    border-left: 1px solid silver!important;*/
+/*}*/
+
+/*.parent {*/
+/*    overflow: hidden!important;*/
+/*}*/

@@ -7,8 +7,6 @@ export let fetchedParentIds = [];
 export const setNodeSelected = createAction('NODE_SET_SELECTED');
 export const unsetSelectedNode = createAction('NODE_UNSET_SELECTED');
 
-export const toggleUpItem = createAction('TREE_ITEM_TOGGLE_UP');
-
 export const openForm = createAction('FORM_OPEN');
 export const closeForm = createAction('FORM_CLOSE');
 
@@ -27,11 +25,6 @@ export const updateNodeFailure = createAction('NODES_UPDATE_FAILURE');
 export const fetchNodesRequest = createAction('NODES_FETCH_REQUEST');
 export const fetchNodesSuccess = createAction('NODES_FETCH_SUCCESS');
 export const fetchNodesFailure = createAction('NODES_FETCH_FAILURE');
-
-export const toggleItem = (deleteIds, id) => (dispatch) => {
-  dispatch(toggleUpItem({ deleteIds }));
-  fetchedParentIds = fetchedParentIds.filter((i) => [...deleteIds, id].indexOf(i) === -1)
-};
 
 export const fetchNodes = (parentId) => (dispatch) => {
   if (fetchedParentIds.indexOf(parentId) !== -1) return;

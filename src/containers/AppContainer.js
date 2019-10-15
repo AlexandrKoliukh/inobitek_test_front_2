@@ -33,19 +33,21 @@ class AppContainer extends React.Component {
       nodeAddState,
       nodeUpdateState,
       nodeRemovingState,
-      toggleItem,
       setNodeSelected,
       selectedNode,
       unsetSelectedNode,
       closeForm,
+      nodes,
       ...restProps
     } = this.props;
+
+    if (nodes.length === 0) return null;
 
     const isRequestingState = (nodesFetchingState === 'requested' ||
       nodeUpdateState === 'requested' || nodeAddState === 'requested' ||
       nodeRemovingState === 'requested');
 
-    const isDisabled = !selectedNode.id;
+    const isDeleteDisabled = !selectedNode.id;
 
     const rootClasses = cn({
       "list-group-item": true,
@@ -67,9 +69,9 @@ class AppContainer extends React.Component {
         <TreeItem
           parentId={0}
           selectedNode={selectedNode}
+          nodes={nodes}
           {...restProps}
           leftShift={1}
-          toggleItem={toggleItem}
           setNodeSelected={setNodeSelected}
         />
       </ul>
@@ -90,7 +92,8 @@ class AppContainer extends React.Component {
         <Row left={treeView}
              right={nodeView}
              onClick={this.handleClick}
-             isDisabled={isDisabled}
+             isDeleteDisabled={isDeleteDisabled}
+             isRequestingState={isRequestingState}
         />
         )}
       </>
@@ -116,7 +119,6 @@ const actionCreators = {
   fetchNodes: actions.fetchNodes,
   setNodeSelected: actions.setNodeSelected,
   unsetSelectedNode: actions.unsetSelectedNode,
-  toggleItem: actions.toggleItem,
 };
 
 export default connect(mapStateToProps, actionCreators)(AppContainer);

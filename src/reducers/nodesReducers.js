@@ -105,11 +105,6 @@ const nodes = handleActions({
       asyncState: { ...asyncState, nodeUpdateState: 'finished' },
     };
   },
-
-  [actions.toggleUpItem](state, { payload: { deleteIds } }) {
-    const { data } = state;
-    return { ...state, data: data.filter(i => deleteIds.indexOf(i.id) === -1) }
-  },
 }, {
   data: [], asyncState: {
     nodeAddState: 'none',
