@@ -105,6 +105,16 @@ const nodes = handleActions({
       asyncState: { ...asyncState, nodeUpdateState: 'finished' },
     };
   },
+  [actions.refreshState]() {
+    return {
+      data: [], asyncState: {
+        nodeAddState: 'none',
+        nodeUpdateState: 'none',
+        nodeRemovingState: 'none',
+        nodesFetchingState: 'none',
+      }
+    }
+  }
 }, {
   data: [], asyncState: {
     nodeAddState: 'none',

@@ -13,7 +13,6 @@ import EditFormContainer from './forms/EditFormContainer';
 import AddFormContainer from './forms/AddFormContainer';
 import DeleteFormContainer from './forms/DeleteFormContainer';
 
-
 class AppContainer extends React.Component {
 
   constructor(props) {
@@ -38,6 +37,7 @@ class AppContainer extends React.Component {
       unsetSelectedNode,
       closeForm,
       nodes,
+      refreshNodes,
       ...restProps
     } = this.props;
 
@@ -89,12 +89,15 @@ class AppContainer extends React.Component {
     return (
       <>
         {nodesFetchingState === 'failed' ? <ErrorIndicator/> : (
-        <Row left={treeView}
-             right={nodeView}
-             onClick={this.handleClick}
-             isDeleteDisabled={isDeleteDisabled}
-             isRequestingState={isRequestingState}
-        />
+          <Row left={treeView}
+               right={nodeView}
+               onClick={this.handleClick}
+               isDeleteDisabled={isDeleteDisabled}
+               isRequestingState={isRequestingState}
+               refreshNodes={refreshNodes}
+               closeForm={closeForm}
+               unsetSelectedNode={unsetSelectedNode}
+          />
         )}
       </>
     )
@@ -117,6 +120,7 @@ const actionCreators = {
   openForm: actions.openForm,
   closeForm: actions.closeForm,
   fetchNodes: actions.fetchNodes,
+  refreshNodes: actions.refreshNodes,
   setNodeSelected: actions.setNodeSelected,
   unsetSelectedNode: actions.unsetSelectedNode,
 };

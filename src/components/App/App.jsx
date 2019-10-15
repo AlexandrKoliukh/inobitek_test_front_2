@@ -6,11 +6,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import './app.css'
 
 function App() {
-  return (
-    <div className="container">
-      <AppContainer/>
-    </div>
-  );
+  return <AppContainer/>;
 }
 
 export default App;

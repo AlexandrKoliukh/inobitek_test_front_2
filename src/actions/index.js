@@ -26,47 +26,65 @@ export const fetchNodesRequest = createAction('NODES_FETCH_REQUEST');
 export const fetchNodesSuccess = createAction('NODES_FETCH_SUCCESS');
 export const fetchNodesFailure = createAction('NODES_FETCH_FAILURE');
 
+export const refreshState = createAction('NODES_REFRESH');
+
+export const refreshNodes = () => (dispatch) => {
+  fetchedParentIds = [];
+  dispatch(refreshState());
+  dispatch(fetchNodesRequest());
+  dispatch(unsetSelectedNode());
+  dispatch(closeForm());
+  service.getNodesByParentId(0)
+    .then((data) => {
+      dispatch(fetchNodesSuccess({ data }))
+    })
+    .catch((error) => {
+      dispatch(fetchNodesFailure());
+      throw error;
+    });
+};
+
 export const fetchNodes = (parentId) => (dispatch) => {
   if (fetchedParentIds.indexOf(parentId) !== -1) return;
-	fetchedParentIds.push(parentId);
+  fetchedParentIds.push(parentId);
   dispatch(fetchNodesRequest());
-	return service.getNodesByParentId(parentId)
-		.then((data) => {
-			dispatch(fetchNodesSuccess({data}));
-		})
-		.catch((error) => {
-			dispatch(fetchNodesFailure());
-			throw error;
-		});
+  return service.getNodesByParentId(parentId)
+    .then((data) => {
+      dispatch(fetchNodesSuccess({ data }));
+    })
+    .catch((error) => {
+      dispatch(fetchNodesFailure());
+      throw error;
+    });
 };
 
 export const addNode = (node) => (dispatch) => {
   dispatch(addNodeRequest());
-	return service.addNode(node)
-		.then((data) => dispatch(addNodeSuccess({data})))
-		.catch((error) => {
-			dispatch(addNodeFailure());
-			throw error;
-		});
+  return service.addNode(node)
+    .then((data) => dispatch(addNodeSuccess({ data })))
+    .catch((error) => {
+      dispatch(addNodeFailure());
+      throw error;
+    });
 };
 
 export const removeNode = (node, childrenIds) => (dispatch) => {
   dispatch(removeNodeRequest());
-	return service.removeNode(node)
-		.then(() => dispatch(removeNodeSuccess({data: {id: node.id, deleteIds: childrenIds}})))
-		.catch((error) => {
-				dispatch(removeNodeFailure());
-				throw error;
-			}
-		);
+  return service.removeNode(node)
+    .then(() => dispatch(removeNodeSuccess({ data: { id: node.id, deleteIds: childrenIds } })))
+    .catch((error) => {
+        dispatch(removeNodeFailure());
+        throw error;
+      }
+    );
 };
 
 export const updateNode = (node) => (dispatch) => {
   dispatch(updateNodeRequest());
-	return service.updateNode(node)
-		.then((data) => dispatch(updateNodeSuccess({data})))
-		.catch((error) => {
-			dispatch(updateNodeFailure());
-			throw error;
-		});
+  return service.updateNode(node)
+    .then((data) => dispatch(updateNodeSuccess({ data })))
+    .catch((error) => {
+      dispatch(updateNodeFailure());
+      throw error;
+    });
 };

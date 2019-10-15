@@ -1,3 +1,8 @@
 .central-btn {
     margin: 5px 0;
 }
+
+.right-container {
+    position: sticky!important;
+    top: 10px!important;
+}
