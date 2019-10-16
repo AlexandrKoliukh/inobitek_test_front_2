@@ -14,7 +14,7 @@ const renderField = ({ input, label, meta: { touched, error } }) => (
 
 const EditNodeForm = (props) => {
   const {
-    submitSucceeded, error, invalid, submitting, onSubmit, onCloseForm
+    error, invalid, submitting, onSubmit, onCloseForm
   } = props;
 
   return (
@@ -52,11 +52,6 @@ const EditNodeForm = (props) => {
           <strong className="danger-message">{error.message}</strong>
         </div>
       )}
-      {submitSucceeded && (
-        <p>
-          <strong className="success-message">Updated success!</strong>
-        </p>
-      )}
         <button type="submit" className="btn btn-primary" disabled={submitting || invalid}>
           {submitting && <i className="fa fa-spinner"/>}
           Update
@@ -66,7 +61,7 @@ const EditNodeForm = (props) => {
                 disabled={submitting}
                 onClick={onCloseForm}
         >
-          Close
+          Cancel
         </button>
     </form>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 
 const DeleteNodeForm = (props) => {
   const {
-    submitting, onSubmit, selectedNode, closeForm
+    submitting, onSubmit, selectedNode, closeForm, error
   } = props;
 
   return (
@@ -15,12 +15,17 @@ const DeleteNodeForm = (props) => {
           {submitting && <i className="fa fa-spinner"/>}
           Delete
         </button>
+        {error && (
+          <div>
+            <strong className="danger-message">{error.message}</strong>
+          </div>
+        )}
         <button type="button"
                 className="btn btn-secondary"
                 disabled={submitting}
                 onClick={closeForm}
         >
-          Close
+          Cancel
         </button>
       </div>
     </form>

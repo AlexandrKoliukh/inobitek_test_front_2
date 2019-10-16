@@ -1,6 +1,15 @@
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 
+const defaultState = {
+  data: [], asyncState: {
+    nodeAddState: 'none',
+    nodeUpdateState: 'none',
+    nodeRemovingState: 'none',
+    nodesFetchingState: 'none',
+  }
+};
+
 const nodes = handleActions({
   [actions.fetchNodesRequest](state) {
     return {
@@ -106,22 +115,8 @@ const nodes = handleActions({
     };
   },
   [actions.refreshState]() {
-    return {
-      data: [], asyncState: {
-        nodeAddState: 'none',
-        nodeUpdateState: 'none',
-        nodeRemovingState: 'none',
-        nodesFetchingState: 'none',
-      }
-    }
+    return defaultState;
   }
-}, {
-  data: [], asyncState: {
-    nodeAddState: 'none',
-    nodeUpdateState: 'none',
-    nodeRemovingState: 'none',
-    nodesFetchingState: 'none',
-  }
-});
+}, defaultState);
 
 export default nodes;

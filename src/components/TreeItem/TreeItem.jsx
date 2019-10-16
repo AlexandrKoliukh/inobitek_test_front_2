@@ -3,19 +3,21 @@ import cn from 'classnames';
 import { fetchedParentIds } from '../../actions'
 
 import './tree-item.css';
-import { extractChildrenById, getNodeById } from '../../utils/aroundTree';
+import { extractChildrenById } from '../../utils/aroundTree';
 
 class TreeItem extends React.Component {
 
-  toggledItems = [];
+  state = {
+    toggledItems: [],
+  };
 
   nodesFetch = (id, itemProps) => (e) => {
     if (itemProps.isToggled) {
       this.toggle(id, itemProps)(e);
     }
-    const { fetchNodes, setNodeSelected, nodes } = this.props;
+    const { fetchNodes, setNodeSelected } = this.props;
     fetchNodes(id);
-    setNodeSelected(getNodeById(id, nodes));
+    setNodeSelected(id);
   };
 
   getChildren = (id) => {
@@ -27,16 +29,19 @@ class TreeItem extends React.Component {
 
   toggle = (id, itemProps) => (e) => {
     e.stopPropagation();
+    const { setNodeSelected } = this.props;
+    const { toggledItems } = this.state;
+
     if (!itemProps.isFetched) {
-      this.nodesFetch(id, itemProps)(e);
+      this.setState({ toggledItems: [...toggledItems, id] });
       return;
     }
-    const { nodes, setNodeSelected } = this.props;
-    setNodeSelected(getNodeById(id, nodes));
-    if (itemProps.isToggled) {
-      this.toggledItems = this.toggledItems.filter((i) => i !== id);
+    setNodeSelected(id);
+
+    if (!itemProps.isToggled) {
+      this.setState({ toggledItems: toggledItems.filter((i) => i !== id) });
     } else {
-      this.toggledItems = [...this.toggledItems, id];
+      this.setState({ toggledItems: [...toggledItems, id] });
     }
   };
 
@@ -66,11 +71,13 @@ class TreeItem extends React.Component {
       ...props
     } = this.props;
 
+    const { toggledItems } = this.state;
+
     return (
       this.getChildren(parentId).map((child) => {
         const itemProps = {
           hasChildren: this.getChildren(child.id).length !== 0,
-          isToggled: this.toggledItems.includes(child.id),
+          isToggled: !toggledItems.includes(child.id),
           isFetched: fetchedParentIds.includes(child.id),
         };
 
@@ -79,7 +86,6 @@ class TreeItem extends React.Component {
             <ul className="list-item-container">
             <li onClick={this.nodesFetch(child.id, itemProps)}
                   className={this.getClassesLi(child.id, itemProps)}
-                  // style={{ marginLeft: `${leftShift * 20}px` }}
             >
               {child.name}
               <button type="button"

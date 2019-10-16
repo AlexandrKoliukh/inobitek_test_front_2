@@ -14,7 +14,7 @@ const renderField = ({ input, label, meta: { touched, error } }) => (
 
 const AddNodeForm = (props) => {
   const {
-    submitSucceeded, error, invalid, submitting, onSubmit, selectedNode, onCloseForm
+    error, invalid, submitting, onSubmit, selectedNode, onCloseForm
   } = props;
 
   return (
@@ -54,12 +54,6 @@ const AddNodeForm = (props) => {
             <strong className="danger-message">{error.message}</strong>
           </div>
         )}
-        {submitSucceeded && (
-          <p>
-            <strong className="success-message">Added success!</strong>
-          </p>
-        )}
-
         <div className="form-group">
           <button type="submit" className="btn btn-success" disabled={submitting || invalid}>
             {submitting && <i className="fa fa-spinner"/>}
@@ -70,7 +64,7 @@ const AddNodeForm = (props) => {
                   disabled={submitting}
                   onClick={onCloseForm}
           >
-            Close
+            Cancel
           </button>
         </div>
       </form>

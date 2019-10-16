@@ -5,6 +5,7 @@ import { getChildrenIdsWide } from '../../utils/aroundTree';
 import treeNodesSelector from '../../selectors/makeTree';
 import { reduxForm, SubmissionError } from 'redux-form';
 import DeleteNodeForm from '../../components/forms/DeleteNodeForm';
+import selectedNodeSelector from '../../selectors/getSelectedNodeProps';
 
 class DeleteFormContainer extends React.Component {
   onRemove = () => {
@@ -12,10 +13,10 @@ class DeleteFormContainer extends React.Component {
       removeNode, selectedNode, closeForm, unsetSelectedNode, nodes,
     } = this.props;
     const childrenIds = getChildrenIdsWide(selectedNode.id, nodes);
-    return removeNode(selectedNode, childrenIds)
+    return removeNode(selectedNode.id, childrenIds)
       .then(() => {
-        closeForm();
         unsetSelectedNode();
+        closeForm();
       })
       .catch((_error) => {
         throw new SubmissionError({ _error });
@@ -24,13 +25,14 @@ class DeleteFormContainer extends React.Component {
 
   render() {
     const {
-      closeForm, handleSubmit, submitting, selectedNode, formState
+      closeForm, handleSubmit, submitting, selectedNode, formState, error
     } = this.props;
 
     if (formState.data !== 'delete') return null;
 
     return (
       <DeleteNodeForm
+        error={error}
         closeForm={closeForm}
         submitting={submitting}
         selectedNode={selectedNode}
@@ -43,7 +45,7 @@ class DeleteFormContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    selectedNode: state.selectedNode,
+    selectedNode: selectedNodeSelector(state),
     nodes: treeNodesSelector(state),
     formState: state.formState,
   }

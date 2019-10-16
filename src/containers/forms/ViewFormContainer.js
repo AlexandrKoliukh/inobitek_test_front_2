@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 import { ViewNodeForm } from '../../components/forms/';
+import selectedNodeSelector from '../../selectors/getSelectedNodeProps';
 
 class ViewFormContainer extends React.Component {
 
@@ -20,11 +21,7 @@ class ViewFormContainer extends React.Component {
   };
 
   render() {
-    const {
-      handleSubmit,
-      formState
-    } = this.props;
-
+    const { handleSubmit, formState } = this.props;
     if (formState.data !== 'view') return null;
 
     return (
@@ -38,8 +35,8 @@ class ViewFormContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { selectedNode } = state;
-  const { name, ip, port } = selectedNode;
+  const selectedNode = selectedNodeSelector(state);
+  const { name, ip, port } = selectedNodeSelector(state);
   return {
     nodeUpdateState: state.nodeUpdateState,
     selectedNode,

@@ -4,7 +4,6 @@ import Loader from '../components/Loader/Loader';
 import * as actions from '../actions';
 import cn from 'classnames';
 import treeNodesSelector from '../selectors/makeTree';
-
 import ErrorIndicator from '../components/ErrorIndicator';
 import Row from '../components/Row/Row';
 import TreeItem from '../components/TreeItem/TreeItem';
@@ -12,6 +11,7 @@ import ViewFormContainer from './forms/ViewFormContainer';
 import EditFormContainer from './forms/EditFormContainer';
 import AddFormContainer from './forms/AddFormContainer';
 import DeleteFormContainer from './forms/DeleteFormContainer';
+import selectedNodeSelector from '../selectors/getSelectedNodeProps';
 
 class AppContainer extends React.Component {
 
@@ -41,11 +41,10 @@ class AppContainer extends React.Component {
       ...restProps
     } = this.props;
 
-    if (nodes.length === 0) return null;
-
-    const isRequestingState = (nodesFetchingState === 'requested' ||
-      nodeUpdateState === 'requested' || nodeAddState === 'requested' ||
-      nodeRemovingState === 'requested');
+    const isRequestingState = (
+      nodesFetchingState === 'requested' || nodeUpdateState === 'requested'
+      || nodeAddState === 'requested' || nodeRemovingState === 'requested'
+    );
 
     const isDeleteDisabled = !selectedNode.id;
 
@@ -105,13 +104,13 @@ class AppContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { nodes: { asyncState }, selectedNode } = state;
+  const { nodes: { asyncState } } = state;
   return {
     nodesFetchingState: asyncState.nodesFetchingState,
     nodeAddState: asyncState.nodeAddState,
     nodeUpdateState: asyncState.nodeUpdateState,
     nodeRemovingState: asyncState.nodeRemovingState,
-    selectedNode,
+    selectedNode: selectedNodeSelector(state),
     nodes: treeNodesSelector(state),
   }
 };

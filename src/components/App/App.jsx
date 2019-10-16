@@ -5,8 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './app.css'
 
-function App() {
-  return <AppContainer/>;
-}
+const App = () => <AppContainer/>;
 
 export default App;

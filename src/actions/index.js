@@ -31,9 +31,9 @@ export const refreshState = createAction('NODES_REFRESH');
 export const refreshNodes = () => (dispatch) => {
   fetchedParentIds = [];
   dispatch(refreshState());
-  dispatch(fetchNodesRequest());
   dispatch(unsetSelectedNode());
   dispatch(closeForm());
+  dispatch(fetchNodesRequest());
   service.getNodesByParentId(0)
     .then((data) => {
       dispatch(fetchNodesSuccess({ data }))
@@ -68,10 +68,10 @@ export const addNode = (node) => (dispatch) => {
     });
 };
 
-export const removeNode = (node, childrenIds) => (dispatch) => {
+export const removeNode = (nodeId, childrenIds) => (dispatch) => {
   dispatch(removeNodeRequest());
-  return service.removeNode(node)
-    .then(() => dispatch(removeNodeSuccess({ data: { id: node.id, deleteIds: childrenIds } })))
+  return service.removeNode(nodeId)
+    .then(() => dispatch(removeNodeSuccess({ data: { id: nodeId, deleteIds: childrenIds } })))
     .catch((error) => {
         dispatch(removeNodeFailure());
         throw error;

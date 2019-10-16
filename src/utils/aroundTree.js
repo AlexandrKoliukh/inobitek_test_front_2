@@ -47,6 +47,6 @@ export const getNodeById = (id, tree) => {
     if (nodeId === id) res.push(node);
     return node;
   }, i));
-
+  if (!res[0]) return {};
   return res[0];
 };

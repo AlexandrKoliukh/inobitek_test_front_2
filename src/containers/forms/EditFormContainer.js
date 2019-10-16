@@ -4,15 +4,17 @@ import { reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
 import validate from '../../validators/validate';
 import { EditNodeForm } from '../../components/forms/';
+import selectedNodeSelector from '../../selectors/getSelectedNodeProps';
 
 class EditFormContainer extends React.Component {
 
   handleSubmit = (form) => {
-    const { updateNode, selectedNode, setNodeSelected } = this.props;
+    const { updateNode, selectedNode, setNodeSelected, closeForm } = this.props;
     const newNode = { ...form, id: selectedNode.id, parentId: selectedNode.parent_id };
     return updateNode(newNode)
       .then(() => {
-        setNodeSelected(newNode);
+        setNodeSelected(newNode.id);
+        closeForm();
       })
       .catch((_error) => {
         throw new SubmissionError({ _error });
@@ -26,12 +28,8 @@ class EditFormContainer extends React.Component {
   };
 
   render() {
-    const { formState } = this.props;
+    const { formState, handleSubmit } = this.props;
     if (formState.data !== 'edit') return null;
-
-    const {
-      handleSubmit
-    } = this.props;
 
     return (
       <EditNodeForm
@@ -44,7 +42,8 @@ class EditFormContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { selectedNode } = state;
+  const { nodes } = state;
+  const selectedNode = selectedNodeSelector(state);
   const { name, ip, port } = selectedNode;
   return {
     nodeUpdateState: state.nodeUpdateState,
@@ -52,6 +51,7 @@ const mapStateToProps = (state) => {
     editFormState: state.editFormState,
     initialValues: { name, ip, port },
     formState: state.formState,
+    nodes,
   }
 };
 

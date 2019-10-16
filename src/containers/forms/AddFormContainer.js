@@ -4,13 +4,17 @@ import { reduxForm, SubmissionError } from 'redux-form';
 import * as actions from '../../actions';
 import validate from '../../validators/validate';
 import AddNodeForm from '../../components/forms/AddNodeForm';
+import selectedNodeSelector from '../../selectors/getSelectedNodeProps';
 
 class AddFormContainer extends React.Component {
   handleSubmit = (values) => {
-    const { addNode, selectedNode, reset } = this.props;
-    const parentId = selectedNode ? selectedNode.id : 0;
+    const { addNode, selectedNode, closeForm, reset } = this.props;
+    const parentId = selectedNode.id || 0;
     return addNode({ ...values, parentId })
-      .then(() => reset())
+      .then(() => {
+        reset();
+        closeForm();
+      })
       .catch((_error) => {
         throw new SubmissionError({ _error });
       });
@@ -46,7 +50,7 @@ class AddFormContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    selectedNode: state.selectedNode,
+    selectedNode: selectedNodeSelector(state),
     formState: state.formState,
   }
 };

@@ -20,7 +20,7 @@ const ViewNodeForm = (props) => {
   } = props;
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="border border-white rounded p-2">
       <div className="form-group">
         <div>
           <Field name="name"

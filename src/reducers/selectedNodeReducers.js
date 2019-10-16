@@ -1,13 +1,13 @@
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 
-const selectedNode = handleActions({
+const selectedNodeId = handleActions({
   [actions.setNodeSelected](state, { payload }) {
-    return { ...payload };
+    return payload;
   },
   [actions.unsetSelectedNode]() {
-    return {};
+    return 0;
   },
-}, {});
+}, 0);
 
-export default selectedNode;
+export default selectedNodeId;
