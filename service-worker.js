@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/inobitek_test_front_2/precache-manifest.3b77f53dfd988c63dc0f61ece2b7533e.js"
+  "/inobitek_test_front_2/precache-manifest.9bac2da8e89ed3f81d7387494f4640a8.js"
 );
 
 self.addEventListener('message', (event) => {

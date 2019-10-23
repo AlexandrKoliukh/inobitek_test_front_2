@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "221d4bb09f1fb3d4c85e97e407dc7806",
+    "revision": "cb6351e486f25b5854799c81dc824ace",
     "url": "/inobitek_test_front_2/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/inobitek_test_front_2/static/css/2.11b2e342.chunk.css"
   },
   {
-    "revision": "e60739fa810c09d5140d",
+    "revision": "eae06e1f0ae6295557b1",
     "url": "/inobitek_test_front_2/static/css/main.c3356c50.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/inobitek_test_front_2/static/js/2.9b79e563.chunk.js"
   },
   {
-    "revision": "e60739fa810c09d5140d",
-    "url": "/inobitek_test_front_2/static/js/main.35021fb9.chunk.js"
+    "revision": "eae06e1f0ae6295557b1",
+    "url": "/inobitek_test_front_2/static/js/main.b4857ac9.chunk.js"
   },
   {
     "revision": "c833768db646aa1edda5",
