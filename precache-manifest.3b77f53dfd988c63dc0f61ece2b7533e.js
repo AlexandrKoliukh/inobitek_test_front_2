@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a152363bd12cf72fa461689f0568fc5b",
+    "revision": "221d4bb09f1fb3d4c85e97e407dc7806",
     "url": "/inobitek_test_front_2/index.html"
   },
   {
-    "revision": "be2d972610d8ce91a6ed",
+    "revision": "55135dcc6e32542437fe",
     "url": "/inobitek_test_front_2/static/css/2.11b2e342.chunk.css"
   },
   {
-    "revision": "cafba87240eaf32b63d3",
-    "url": "/inobitek_test_front_2/static/css/main.16b34046.chunk.css"
+    "revision": "e60739fa810c09d5140d",
+    "url": "/inobitek_test_front_2/static/css/main.c3356c50.chunk.css"
   },
   {
-    "revision": "be2d972610d8ce91a6ed",
-    "url": "/inobitek_test_front_2/static/js/2.601a1ab7.chunk.js"
+    "revision": "55135dcc6e32542437fe",
+    "url": "/inobitek_test_front_2/static/js/2.9b79e563.chunk.js"
   },
   {
-    "revision": "cafba87240eaf32b63d3",
-    "url": "/inobitek_test_front_2/static/js/main.1de782c0.chunk.js"
+    "revision": "e60739fa810c09d5140d",
+    "url": "/inobitek_test_front_2/static/js/main.35021fb9.chunk.js"
   },
   {
     "revision": "c833768db646aa1edda5",
