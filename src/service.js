@@ -33,11 +33,12 @@ export const addNode = (node) => {
 
 export const removeNode = (nodeId) => {
   const url = getUrl('deleteNode');
-  return fetch(url, getPostHeaders(nodeId))
+  return fetch(url, getPostHeaders({ id: nodeId }))
     .then(getResponse);
 };
 
 export const updateNode = (node) => {
+  console.log(node);
   const url = getUrl('updateNode');
   return fetch(url, getPostHeaders(node))
     .then(getResponse);
