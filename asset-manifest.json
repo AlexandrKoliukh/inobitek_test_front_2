@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/css/main.c3356c50.chunk.css",
-    "main.js": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/js/main.431e06e9.chunk.js",
-    "main.js.map": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/js/main.431e06e9.chunk.js.map",
-    "runtime-main.js": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/js/runtime-main.0e44692c.js",
-    "runtime-main.js.map": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/js/runtime-main.0e44692c.js.map",
-    "static/css/2.5436b810.chunk.css": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/css/2.5436b810.chunk.css",
-    "static/js/2.9b79e563.chunk.js": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/js/2.9b79e563.chunk.js",
-    "static/js/2.9b79e563.chunk.js.map": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/js/2.9b79e563.chunk.js.map",
-    "index.html": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/index.html",
-    "precache-manifest.719bbacea6a38dc08b125b70f9f8a142.js": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/precache-manifest.719bbacea6a38dc08b125b70f9f8a142.js",
-    "service-worker.js": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/service-worker.js",
-    "static/css/2.5436b810.chunk.css.map": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/css/2.5436b810.chunk.css.map",
-    "static/css/main.c3356c50.chunk.css.map": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/css/main.c3356c50.chunk.css.map",
-    "static/media/font-awesome.min.css": "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/static/media/fontawesome-webfont.fee66e71.woff"
+    "main.css": "/AlexandrKoliukh/inobitek_test_front_2/static/css/main.c3356c50.chunk.css",
+    "main.js": "/AlexandrKoliukh/inobitek_test_front_2/static/js/main.431e06e9.chunk.js",
+    "main.js.map": "/AlexandrKoliukh/inobitek_test_front_2/static/js/main.431e06e9.chunk.js.map",
+    "runtime-main.js": "/AlexandrKoliukh/inobitek_test_front_2/static/js/runtime-main.43f19dda.js",
+    "runtime-main.js.map": "/AlexandrKoliukh/inobitek_test_front_2/static/js/runtime-main.43f19dda.js.map",
+    "static/css/2.5d340330.chunk.css": "/AlexandrKoliukh/inobitek_test_front_2/static/css/2.5d340330.chunk.css",
+    "static/js/2.9b79e563.chunk.js": "/AlexandrKoliukh/inobitek_test_front_2/static/js/2.9b79e563.chunk.js",
+    "static/js/2.9b79e563.chunk.js.map": "/AlexandrKoliukh/inobitek_test_front_2/static/js/2.9b79e563.chunk.js.map",
+    "index.html": "/AlexandrKoliukh/inobitek_test_front_2/index.html",
+    "precache-manifest.ecaa4e2b55aa2c0742f9d6393d13b7a0.js": "/AlexandrKoliukh/inobitek_test_front_2/precache-manifest.ecaa4e2b55aa2c0742f9d6393d13b7a0.js",
+    "service-worker.js": "/AlexandrKoliukh/inobitek_test_front_2/service-worker.js",
+    "static/css/2.5d340330.chunk.css.map": "/AlexandrKoliukh/inobitek_test_front_2/static/css/2.5d340330.chunk.css.map",
+    "static/css/main.c3356c50.chunk.css.map": "/AlexandrKoliukh/inobitek_test_front_2/static/css/main.c3356c50.chunk.css.map",
+    "static/media/font-awesome.min.css": "/AlexandrKoliukh/inobitek_test_front_2/static/media/fontawesome-webfont.fee66e71.woff"
   }
 }

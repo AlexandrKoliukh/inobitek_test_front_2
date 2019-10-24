@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/https://github.com/AlexandrKoliukh/inobitek_test_front_2/precache-manifest.719bbacea6a38dc08b125b70f9f8a142.js"
+  "/AlexandrKoliukh/inobitek_test_front_2/precache-manifest.ecaa4e2b55aa2c0742f9d6393d13b7a0.js"
 );
 
 self.addEventListener('message', (event) => {
@@ -33,7 +33,7 @@ workbox.core.clientsClaim();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/https://github.com/AlexandrKoliukh/inobitek_test_front_2/index.html"), {
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/AlexandrKoliukh/inobitek_test_front_2/index.html"), {
   
   blacklist: [/^\/_/,/\/[^\/?]+\.[^\/]+$/],
 });
