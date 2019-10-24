@@ -6,7 +6,7 @@
     
 <h2>Run App</h2>
     
-Change port and host in the /routes.js
+Change port and host in the /service.js
     
     const host = your server host; localhost default
     const port = your server port; 3001 default
