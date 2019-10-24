@@ -46,7 +46,7 @@ class AppContainer extends React.Component {
       || nodeAddState === 'requested' || nodeRemovingState === 'requested'
     );
 
-    const isDeleteDisabled = !selectedNode.id;
+    const isDeleteDisabled = !selectedNode.id || isRequestingState;
 
     const rootClasses = cn({
       "list-group-item": true,
